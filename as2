@@ -1,6 +1,5 @@
 create database if not exists as2;
 use as2;
-#if these faild, it will use current database!!!!
 drop table Parameter;
 drop table Method;
 drop table ServerUsage;
@@ -13,7 +12,7 @@ create table ServerType (
   description varchar(255)
 );
 insert into ServerType(name,description)
-values ('database server','database server'),
+values ('database server','database server desc'),
 ('content management','content management'),
 ('load balance','load blance'),
 ('def','st-def');
@@ -46,16 +45,16 @@ values (1,1),
 (1,3),
 (1,4),
 (2,1),
-(2,2),
 (2,3),
 (2,4),
+(2,5),
 (3,1),
 (3,2),
 (3,3),
 (3,4),
 (4,5),
 (4,6),
-(5,3),
+(5,2),
 (5,4),
 (5,6);
 
@@ -110,6 +109,10 @@ values ('p1-m1',1,'Document','out'),
 ('p2-m6',6,'String','in'),
 ('p1-m7',7,'HashMap','in'),
 ('p2-m8',8,'Integer','in'),
+('p2-m8',9,'Document','out'),
+('p2-m8',10,'Integer','inout'),
+('p2-m8',11,'Double','in'),
+('p2-m8',12,'String','in'),
 ('p1-m13',13,'Integer','out'),
 ('p2-m13',13,'String','inout'),
 ('p3-m13',13,'Float','in');
