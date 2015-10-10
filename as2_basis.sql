@@ -1,10 +1,10 @@
 create database if not exists as2;
 use as2;
-drop table Parameter;
-drop table Method;
-drop table ServerUsage;
-drop table Server;
-drop table ServerType;
+drop table if exists Parameter;
+drop table if exists Method;
+drop table if exists ServerUsage;
+drop table if exists Server;
+drop table if exists ServerType;
 
 create table ServerType (
   id int primary key auto_increment,
@@ -91,28 +91,30 @@ create table Parameter (
   alternative enum('in', 'out', 'inout') not null
 );
 insert into Parameter(name, usedBy, type, alternative)
-values ('p1-m1',1,'Document','out'),
-('p2-m1',1,'Integer','in'),
-('p3-m1',1,'String','out'),
-('p1-m2',2,'Float','out'),
-('p2-m2',2,'Double','in'),
-('p1-m3',3,'HashMap','out'),
-('p2-m3',3,'Double','out'),
-('p3-m3',3,'Integer','in'),
-('p4-m3',3,'Document','inout'),
-('p1-m5',5,'String','in'),
-('p2-m5',5,'Integer','in'),
-('p3-m5',5,'Float','out'),
-('p4-m5',5,'Double','in'),
-('p5-m5',5,'Integer','in'),
-('p1-m6',6,'Integer','in'),
-('p2-m6',6,'String','in'),
-('p1-m7',7,'HashMap','in'),
-('p2-m8',8,'Integer','in'),
-('p2-m8',9,'Document','out'),
-('p2-m8',10,'Integer','inout'),
-('p2-m8',11,'Double','in'),
-('p2-m8',12,'String','in'),
-('p1-m13',13,'Integer','out'),
-('p2-m13',13,'String','inout'),
-('p3-m13',13,'Float','in');
+values ('p1-mid1',1,'Document','out'),
+('p2-mid1',1,'Integer','in'),
+('p3-mid1',1,'String','out'),
+('p1-mid2',2,'Float','out'),
+('p2-mid2',2,'Double','in'),
+('p1-mid3',3,'HashMap','out'),
+('p2-mid3',3,'Double','out'),
+('p3-mid3',3,'Integer','in'),
+('p4-mid3',3,'Document','inout'),
+('p1-mid5',5,'String','in'),
+('p2-mid5',5,'Integer','in'),
+('p3-mid5',5,'Float','out'),
+('p4-mid5',5,'Double','in'),
+('p5-mid5',5,'Integer','in'),
+('p1-mid6',6,'Integer','in'),
+('p2-mid6',6,'String','in'),
+('p1-mid7',7,'HashMap','in'),
+('p1-mid8',8,'Integer','in'),
+('p1-mid9',9,'Document','out'),
+('p2-mid9',9,'String','in'),
+('p3-mid9',9,'Document','out'),
+('p1-mid10',10,'Integer','inout'),
+('p1-mid11',11,'Double','in'),
+('p1-mid12',12,'String','in'),
+('p1-mid13',13,'Integer','out'),
+('p2-mid13',13,'String','inout'),
+('p3-mid13',13,'Float','in');
