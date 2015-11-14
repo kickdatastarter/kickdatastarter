@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import dbhw2.Qualification;
 
 @Entity
 @Access(AccessType.PROPERTY)
