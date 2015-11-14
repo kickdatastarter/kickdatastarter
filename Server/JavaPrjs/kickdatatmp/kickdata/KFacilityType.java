@@ -1,4 +1,4 @@
-package dbproject;
+package kickdata;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -12,26 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import dbhw2.Qualification;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class KFacilityType implements Serializable {
-	@Id
-	@Column(name="id")
+	private static final long serialVersionUID = 
 	private int id;
-	
-	@Column(length=50,name="typename", nullable=false)
 	private String typename;
-	
-	@Column(length=50,name="tablename", nullable=false)
 	private String tablename;
-	
-	@OneToMany(mappedBy="KFacilityType")
-	public Collection<Facility> Facilities;
-	
-	@OneToMany(mappedBy="KFacilityType")
-	public Collection<Rights> Rights;
 
 
 	public KFacilityType() {
@@ -44,6 +32,7 @@ public class KFacilityType implements Serializable {
 		this.tablename = tablename;
 	}
 	
+	@Id @GeneratedValue
 	public int getid() {
 		return id;
 	}
@@ -52,6 +41,7 @@ public class KFacilityType implements Serializable {
 		this.id = id;
 	}
 	
+	@Basic
 	public String getTableName() {
 		return tablename;
 	}
@@ -60,11 +50,18 @@ public class KFacilityType implements Serializable {
 		this.tablename = tablename;
 	}
 	
+	@Basic
 	public String getTypeName() {
 		return typename;
 	}
 	public void setTypeName(String typename) {
 		this.typename = typename;
 	}
+	
+	@OneToMany(mappedBy="KFacilityType")
+	public Collection<Facility> Facilities;
+	
+	@OneToMany(mappedBy="KFacilityType")
+	public Collection<Rights> Rights;
 
 }
