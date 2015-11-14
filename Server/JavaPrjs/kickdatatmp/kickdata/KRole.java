@@ -1,4 +1,4 @@
-package dbproject;
+package kickdata;
 
 
 import java.io.Serializable;
@@ -13,20 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import dbhw2.Qualification;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class KRole implements Serializable {
-	@Id
-	@Column(name="id")
+	
+	private static final long serialVersionUID = 
 	private int id;
-	
-	@Column(length=500,name="name", nullable=false)
 	private String name;
-	
-	@OneToMany(mappedBy="KRole")
-	public Collection<KUser> KUsers;
 
 	public KRole() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +31,8 @@ public class KRole implements Serializable {
 		this.name = name;
 	}
 	
+	
+	@Id @GeneratedValue
 	public int getid() {
 		return id;
 	}
@@ -45,6 +41,7 @@ public class KRole implements Serializable {
 		this.id = id;
 	}
 	
+	@Basic
 	public String getName() {
 		return name;
 	}
@@ -52,5 +49,9 @@ public class KRole implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	@OneToMany(mappedBy = "KRole")
+	public Collection<KUser> KUsers;
 
 }
