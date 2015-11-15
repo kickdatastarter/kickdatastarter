@@ -3,6 +3,8 @@
  */
 package kickdata;
 
+import java.io.Serializable;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -10,7 +12,11 @@ import javax.persistence.ManyToOne;
  * @author physicsboy
  *
  */
-public class KUser_Studygroup {
+public class KUser_Studygroup implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3201108187000406172L;
 	private KUser user;
 	private KStudygroup group;
 	/**

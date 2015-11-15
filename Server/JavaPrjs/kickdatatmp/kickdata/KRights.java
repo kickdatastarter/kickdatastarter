@@ -17,6 +17,11 @@ import javax.persistence.TemporalType;
 @Access(AccessType.PROPERTY)
 public class KRights implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3517860063594773274L;
+
 	@Column(nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date max_time_per_resv;

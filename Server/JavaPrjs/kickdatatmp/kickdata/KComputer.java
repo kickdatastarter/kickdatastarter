@@ -1,5 +1,7 @@
 package kickdata;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
-public class KComputer {
+public class KComputer implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -109185852638880878L;
 	@Id
 	private int id;
 	public int getId() {
