@@ -1,17 +1,20 @@
-package ss;
+package kickdata;
 
 
 import java.util.Set;
 
+import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.AccessType;
+
 
 @Entity
-
+@Access(AccessType.PROPERTY)
 public class KFacility {
 	@Id
 	private int id;
@@ -61,7 +64,8 @@ public class KFacility {
 	public void setKCmputer(Set<KComputer> kCmputer) {
 		this.KCmputer = kCmputer;
 	}
-	public KFacility(int capacity, KFacilityType type) {
+	public KFacility(int id,int capacity, KFacilityType type) {
+	    this.id=id;
 		this.capacity = capacity;
 		this.type = type;
 	}
