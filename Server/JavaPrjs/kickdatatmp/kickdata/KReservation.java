@@ -3,6 +3,7 @@
  */
 package kickdata;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -13,7 +14,11 @@ import javax.persistence.*;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-public class KReservation {
+public class KReservation implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5520309104330511950L;
 	public enum RsvStatEnum {RESERVED, INUSE, FIFS};
 	public enum MatStatEnum {MAINTAINING, AVAILABLE};
 	private int id;

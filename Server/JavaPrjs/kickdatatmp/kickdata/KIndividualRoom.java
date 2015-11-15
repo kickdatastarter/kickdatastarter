@@ -1,5 +1,7 @@
 package kickdata;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
-public class KIndividualRoom {
-	
+public class KIndividualRoom implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8161892843717738432L;
+
 	@Column(length = 50)
 	private String name;
 	
