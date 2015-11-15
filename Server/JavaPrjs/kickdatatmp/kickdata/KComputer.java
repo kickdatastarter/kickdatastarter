@@ -11,35 +11,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
-public class KComputer implements Serializable {
+public class KComputer extends KFacility implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -109185852638880878L;
-	@Id
-	private int id;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	@Column(length=50)
 	private String name;
-	@ManyToOne 
-	@JoinColumn(name="Facilityid")
-	public KFacility Facilityid;
-	public KComputer(int id,String name, KFacility facilityid) {
-		this.id=id;
+	private KFacility Facilityid;
+	public KComputer(){}
+	public KComputer(String name, KFacility facilityid) {
 		this.name = name;
 		Facilityid = facilityid;
 	}
+	@Column(name="name",length=50)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Id
+	@ManyToOne 
+	@JoinColumn(name="Facilityid")
+	
 	public KFacility getFacilityid() {
 		return Facilityid;
 	}
