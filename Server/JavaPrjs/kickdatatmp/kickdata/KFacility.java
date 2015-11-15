@@ -16,36 +16,42 @@ import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
 public class KFacility {
-	@Id
-	private int id;
-	@Column (nullable=false)
-	private int capacity;
-	@ManyToOne 
-	@JoinColumn(name="type",nullable=false)
-	public KFacilityType type;
 	
-	@OneToMany(mappedBy="Facilityid")
-	private Set<KIndividualRoom> KIndividualRoom;
-	private Set<KGroupRoom> KGroupRoom;
-	private Set<KComputer> KCmputer;
+	private int id;
+	private int capacity;
+	private KFacilityType type;
+	
+	public KFacility(int id,int capacity, KFacilityType type) {
+	    this.id=id;
+		this.capacity = capacity;
+		this.type = type;
+	}
+	@Id
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Column (nullable=false)
 	public int getCapacity() {
 		return capacity;
 	}
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+	@ManyToOne 
+	@JoinColumn(name="type",nullable=false)
 	public KFacilityType getType() {
 		return type;
 	}
 	public void setType(KFacilityType type) {
 		this.type = type;
 	}
+	@OneToMany(mappedBy="Facilityid")
+	private Set<KIndividualRoom> KIndividualRoom;
+	private Set<KGroupRoom> KGroupRoom;
+	private Set<KComputer> KCmputer;
 	public Set<KIndividualRoom> getKIndividualRoom() {
 		return KIndividualRoom;
 	}
@@ -64,11 +70,7 @@ public class KFacility {
 	public void setKCmputer(Set<KComputer> kCmputer) {
 		this.KCmputer = kCmputer;
 	}
-	public KFacility(int id,int capacity, KFacilityType type) {
-	    this.id=id;
-		this.capacity = capacity;
-		this.type = type;
-	}
+	
 	
 	
 	
