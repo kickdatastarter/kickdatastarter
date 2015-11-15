@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
-public class KGroupRoom implements Serializable {
+public class KGroupRoom extends KFacility implements Serializable {
 	/**
 	 * 
 	 */

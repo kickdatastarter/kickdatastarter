@@ -69,6 +69,7 @@ public class KFacility implements Serializable {
 	public void setKCmputer(Set<KComputer> kCmputer) {
 		this.KCmputer = kCmputer;
 	}
+	public KFacility(){}
 	public KFacility(int id,int capacity, KFacilityType type) {
 	    this.id=id;
 		this.capacity = capacity;

@@ -11,11 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.AccessType;
 @Entity
 @Access(AccessType.PROPERTY)
-public class KIndividualRoom implements Serializable {
+public class KIndividualRoom extends KFacility implements Serializable {
+	private static final long serialVersionUID = 8161892843717738432L;
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8161892843717738432L;
 
 	@Column(length = 50)
 	private String name;
