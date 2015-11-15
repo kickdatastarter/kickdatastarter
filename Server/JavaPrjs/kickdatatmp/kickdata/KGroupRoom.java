@@ -1,23 +1,32 @@
-package ss;
+package kickdata;
 
+import javax.persistence.Access;
 import javax.persistence.Column;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.AccessType;
+@Entity
+@Access(AccessType.PROPERTY)
 public class KGroupRoom {
-	@Facilityid
-	private int Facilityid;
+	@Id
+	private int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	@Column(length=50)
 	private String name;
 	@ManyToOne 
-	@JoinColumn(name="Facility")
-	public KFacility Facility;
-	public int getFacilityid() {
-		return Facilityid;
-	}
-	public void setFacilityid(int facilityid) {
-		this.Facilityid = facilityid;
+	@JoinColumn(name="Facilityid")
+	public KFacility Facilityid;
+	public KGroupRoom(int id,String name, KFacility facilityid) {
+		this.id=id;
+		this.name = name;
+		Facilityid = facilityid;
 	}
 	public String getName() {
 		return name;
@@ -25,11 +34,12 @@ public class KGroupRoom {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-        public KGroupRoom( String name, int facilityid) {
-		this.name = name;
+	public KFacility getFacilityid() {
+		return Facilityid;
+	}
+	public void setFacilityid(KFacility facilityid) {
 		this.Facilityid = facilityid;
 	}
+	
 
 }
