@@ -1,15 +1,15 @@
 use kickdatastarter;
-DROP TABLE KUser_Studygroup;
-DROP TABLE KReservation;
-DROP TABLE KUser;
-DROP TABLE KComputer;
-DROP TABLE KGroupRoom;
-DROP TABLE KIndividualRoom;
-DROP TABLE KFacility;
-DROP TABLE KRights;
-DROP TABLE KStudygroup;
-DROP TABLE KFacilityType;
-DROP TABLE KRole;
+DROP TABLE IF EXISTS KUser_Studygroup;
+DROP TABLE IF EXISTS KReservation;
+DROP TABLE IF EXISTS KUser;
+DROP TABLE IF EXISTS KComputer;
+DROP TABLE IF EXISTS KGroupRoom;
+DROP TABLE IF EXISTS KIndividualRoom;
+DROP TABLE IF EXISTS KFacility;
+DROP TABLE IF EXISTS KRights;
+DROP TABLE IF EXISTS KStudygroup;
+DROP TABLE IF EXISTS KFacilityType;
+DROP TABLE IF EXISTS KRole;
 
 CREATE TABLE KRole(
 id int primary key AUTO_INCREMENT,
