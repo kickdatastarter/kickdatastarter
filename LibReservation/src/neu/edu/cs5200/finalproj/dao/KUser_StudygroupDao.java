@@ -18,6 +18,7 @@ public class KUser_StudygroupDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
 	public void addpersoninStudygroup( int user1,
 			 int newGroupid) {
 		Session session = sessionFactory.openSession();
@@ -26,15 +27,10 @@ public class KUser_StudygroupDao {
 		KStudygroup studygroup = session.get(KStudygroup.class, newGroupid);
 		KUser_Studygroup newgroup = new KUser_Studygroup(user, studygroup);
 		session.save(newgroup);
-
-		
-		
-
-
-
 		session.getTransaction().commit();
 		session.close();
 	}
+	
 	public void deletepeoplefromStudygroup(int Groupid,int userid) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

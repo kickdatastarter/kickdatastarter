@@ -45,7 +45,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><%=session.getAttribute("user")%> <span
+					aria-expanded="false">${sessionScope.user["loginid"]} <span
 						class="caret"></span></a> 
 					
 					<ul class="dropdown-menu">
@@ -53,25 +53,25 @@
 						<li role="separator" class="divider"></li>
 						<li><a href="${ctx}/accounts/signout">Sign out</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/insertUser.jsp">insert user</a></li>
+						<li><a href="${ctx}/admin/insertUser.jsp">insert user</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/deleteUser.jsp">delete user</a></li>
+						<li><a href="${ctx}/admin/deleteUser.jsp">delete user</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/updateUser.jsp">update user</a></li>
+						<li><a href="${ctx}/admin/updateUser.jsp">update user</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/insertComputer.jsp">insert computer</a></li>
+						<li><a href="${ctx}/admin/insertComputer.jsp">insert computer</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/deleteComputer.jsp">delete computer</a></li>
+						<li><a href="${ctx}/admin/deleteComputer.jsp">delete computer</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/insertGroupRoom.jsp">insert group room</a></li>
+						<li><a href="${ctx}/admin/insertGroupRoom.jsp">insert group room</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/deleteGroupRoom.jsp">delete group room</a></li>
+						<li><a href="${ctx}/admin/deleteGroupRoom.jsp">delete group room</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/insertIndividualRoom.jsp">insert individual room</a></li>
+						<li><a href="${ctx}/admin/insertIndividualRoom.jsp">insert individual room</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/deleteIndividualRoom.jsp">delete individual room</a></li>
+						<li><a href="${ctx}/admin/deleteIndividualRoom.jsp">delete individual room</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="${ctx}/accounts/setfacilitystate.jsp">set facility state</a></li>
+						<li><a href="${ctx}/admin/setfacilitystate.jsp">set facility state</a></li>
 					</ul>
 				</li>
 			</ul>

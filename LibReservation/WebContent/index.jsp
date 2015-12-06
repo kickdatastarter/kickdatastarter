@@ -7,11 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+<%@include file="top.jsp"%>
+
+<link href="${ctx}/bootstrap/docs/examples/signin/signin.css"
+	rel="stylesheet">
+	
 </head>
 
 <body>
 
-	<%@include file="top.jsp"%>
+	<form class="form-signin" action="${ctx}/index" method="get">
+		<label >Attendence: </label> 
+			<input required autofocus name="attendence">
+			
+		<br>
+
+		<label>Date: </label> <input id="datePicker_searchFacility" name="datePicker_searchFacility">
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit"
+			value="login" name="action">Search</button>
+	</form>
 
 	<table class="table table-striped">
 		<thead>
@@ -34,22 +49,19 @@
 		</thead>
 
 		<tbody>
-			<s:iterator value="resvData">
+			<s:iterator value="resvData" var="resvData">
 				<tr>
 					<td><s:property value="key" /></td>
 
-					<%
-						for (int i = 1; i < 14; i++) {
-					%>
-					<s:if test="value.contains(1)">
-						<td style="background-color: blue"></td>
-					</s:if>
-					<s:else>
-						<td></td>
-					</s:else>
-					<%
-						}
-					%>
+					<s:set name="list" value="{1,2,3,4,5,6,7,8,9,10,11,12}"></s:set>
+       				<s:iterator var="ent" value="#request.list" status="statu">
+						<s:if test="value.contains(#ent)">
+							<td style="background-color: blue"></td>
+						</s:if>
+						<s:else>
+							<td></td>
+						</s:else>
+					</s:iterator>
 				</tr>
 			</s:iterator>
 		</tbody>
@@ -93,16 +105,19 @@
 		$(function() {
 			
 			var isMakeResvSucceed = '<%=request.getAttribute("isMakeResvSucceed")%>';
-			alert(isMakeResvSucceed);
+			if(isMakeResvSucceed !== "null") {
+				alert(isMakeResvSucceed);
+			}
 			
 			$("#modalBtn").on('click', function() {
 				// Get my groups
 				$.ajax({
 					type : "get",
-					url : "/LibReservation/accounts/getMyStudygroupAjax",
+					url : "${ctx}/accounts/getMyStudygroupAjax",
 					dataType : "json",
 				}).success(function(result) {
 					$("#studygroupDdl_makeResv").empty();
+					$("#studygroupDdl_makeResv").append("<option value=null>null</option>");
 					$.each(result, function(key, val) {
 						$("#studygroupDdl_makeResv").append("<option value=" + key + ">" + val + "</option>");
 					});
@@ -111,7 +126,7 @@
 				// Get all facilities
 				$.ajax({
 					type : "get",
-					url : "/LibReservation/accounts/getAllFacilitiesAjax",
+					url : "${ctx}/accounts/getAllFacilitiesAjax",
 					dataType : "json",
 				}).success(function(result) {
 					$("#facilityDdl_makeResv").empty();

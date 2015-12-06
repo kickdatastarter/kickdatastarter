@@ -28,6 +28,8 @@ public class KUser implements Serializable {
 	
 	private String loginid;
 	
+	private String loginPassword;
+
 	public KUser() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -68,6 +70,14 @@ public class KUser implements Serializable {
 
 	public void setLoginid(String loginid) {
 		this.loginid = loginid;
+	}
+	
+	public String getLoginPassword() {
+		return loginPassword;
+	}
+
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
 	}
 
 	public int getRole() {

@@ -7,9 +7,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/kickdatastarter" />
-		<property name="username" value="kickdata" />
-		<property name="password" value="datastarter2015" />
+			value="jdbc:mysql://localhost:3306/kickdatastarter_test" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -35,7 +35,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>
@@ -56,19 +56,19 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="KComputerDao" class="neu.edu.cs5200.finalproj.dao.KComputerDao">
+	<bean id="kComputerDao" class="neu.edu.cs5200.finalproj.dao.KComputerDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="KGroupRoomDao" class="neu.edu.cs5200.finalproj.dao.KGroupRoomDao">
+	<bean id="kGroupRoomDao" class="neu.edu.cs5200.finalproj.dao.KGroupRoomDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="KIndividualRoomDao" class="neu.edu.cs5200.finalproj.dao.KIndividualRoomDao">
+	<bean id="kIndividualRoomDao" class="neu.edu.cs5200.finalproj.dao.KIndividualRoomDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="KUserDao" class="neu.edu.cs5200.finalproj.dao.KUserDao">
+	<bean id="kUserDao" class="neu.edu.cs5200.finalproj.dao.KUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

@@ -42,6 +42,8 @@
 		</div>
 	</div>
 
+	<br>
+	
 	<form action="${ctx}/accounts/addStudygroup" method="post">
 		<label>Group name</label> 
 		<input type="name" id="inputname" class="form-control"
@@ -49,20 +51,27 @@
 		<button type="submit" value="login" name="action">Submit</button>
 	</form>
 	
+	<br>
+	
  	<form action="/LibReservation/accounts/addpersoninStudygroup" 
  		method="post"> 
  		<label> groupid</label> <input name="newGroupid"> <label> 
  			userid</label> <input name="user1"> 
  			
-		<button type="submit" value="login" name="action">Add</button>
-		
+		<button type="submit" value="login" name="action">Add</button>	
 	</form> 
-		<form action="${ctx}/accounts/deleteStudygroup" method="post">
+	
+	<br>
+	
+	<form action="${ctx}/accounts/deleteStudygroup" method="post">
 		<label>Group name</label> 
 		<input type="name" id="inputname" class="form-control"
 		 required autofocus name="Groupname">
 		<button type="submit" value="login" name="action">Delete</button>
 	</form>
+	
+	<br>
+	
 	<form action="/LibReservation/accounts/deletepeoplefromStudygroup" 
  		method="post"> 
  		<label> groupid</label> <input name="Groupid"> <label> 

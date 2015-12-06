@@ -145,13 +145,13 @@ public class KReservation implements Serializable {
 	 */
 	@ManyToOne
 	@JoinColumn(name="group_id")
-	public KStudygroup getGroup_id() {
+	public KStudygroup getGroup() {
 		return group;
 	}
 	/**
 	 * @param group the group to set
 	 */
-	public void setGroup_id(KStudygroup group) {
+	public void setGroup(KStudygroup group) {
 		this.group = group;
 	}
 	/**

@@ -45,7 +45,7 @@ public class KRights implements Serializable {
 	}
 
 	@Column(nullable=false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	public Date getMax_time_per_resv() {
 		return max_time_per_resv;
 	}
@@ -64,7 +64,7 @@ public class KRights implements Serializable {
 	}
 
 	@Column(nullable=false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	public Date getMax_total_ongoing_resv() {
 		return max_total_ongoing_resv;
 	}

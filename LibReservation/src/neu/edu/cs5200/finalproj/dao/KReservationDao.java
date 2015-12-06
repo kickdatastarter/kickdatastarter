@@ -10,6 +10,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.TreeMap;
+
+import javax.persistence.EntityTransaction;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +20,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import neu.edu.cs5200.finalproj.model.KFacility;
@@ -39,13 +43,16 @@ public class KReservationDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public List<KReservation> getAllResv(int userId) {
+	public List<KReservation> getMyResv(KUser user) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		String hql = "from KReservation where id = :userId ";
+		String hql = "select distinct r from KReservation r, KUser_Studygroup us "
+				   + "where r.reserver = :curUser "
+				   + "or (us.user = :curUser and r.group = us.group) ";
+		
 		Query query = session.createQuery(hql);
-		query.setInteger("userId", userId);
+		query.setParameter("curUser", user);
 		List<KReservation> resvs = (List<KReservation>) query.list();
 		
 		session.getTransaction().commit();
@@ -53,45 +60,55 @@ public class KReservationDao {
 		return resvs;
 	}
 	
-	public Map<String, Set<Integer> > getResvData() throws ParseException {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-//		Calendar startCal = Calendar.getInstance();
-//		startCal.set(Calendar.HOUR_OF_DAY, 0);
-//		startCal.set(Calendar.MINUTE, 0);
-//		startCal.set(Calendar.SECOND, 0);
-//		Date startOfToday = startCal.getTime();
+	public Map<String, Set<Integer> > getResvData(String attendence, String date) throws ParseException {
+//		// Prepare parameters
+//		String[] splits = date.split("/");
+//		int month = Integer.parseInt(splits[0]) - 1;
+//		int day = Integer.parseInt(splits[1]);
+//		int year = Integer.parseInt(splits[2]);
+////		Calendar startCal = new GregorianCalendar(year, month, day, Integer.parseInt(startHour), 0);
+////		Calendar endCal = new GregorianCalendar(year, month, day, Integer.parseInt(endHour), 0);
+////		Timestamp startTimestamp = new Timestamp(startCal.getTime().getTime());
+////		Timestamp endTimestamp = new Timestamp(endCal.getTime().getTime());
 //		
-//		Calendar endCal = Calendar.getInstance();
-//		endCal.set(Calendar.HOUR_OF_DAY, 23);
-//		endCal.set(Calendar.MINUTE, 59);
-//		endCal.set(Calendar.SECOND, 59);
-//		Date endOfToday = endCal.getTime();			 
-		
-		String hql = "from KReservation "
-				+ "where starttime = :startOfToday ";
-				//+ "and endtime between :startOfToday and :endOfToday ";
-		Query query = session.createSQLQuery(hql);
-		
-		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//query.setDate("startOfToday", new Date(1000000000));
-		//query.setParameter("endOfToday", "2015-11-24 07:00:00");
-
-		query.setTimestamp("startOfToday", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-		List<KReservation> resvs = (List<KReservation>) query.list();
-		
-		session.getTransaction().commit();
-		session.close();
+//		
+//		Session session = sessionFactory.openSession();
+//		session.beginTransaction();
+//		
+////		Calendar startCal = Calendar.getInstance();
+////		startCal.set(Calendar.HOUR_OF_DAY, 0);
+////		startCal.set(Calendar.MINUTE, 0);
+////		startCal.set(Calendar.SECOND, 0);
+////		Date startOfToday = startCal.getTime();
+////		
+////		Calendar endCal = Calendar.getInstance();
+////		endCal.set(Calendar.HOUR_OF_DAY, 23);
+////		endCal.set(Calendar.MINUTE, 59);
+////		endCal.set(Calendar.SECOND, 59);
+////		Date endOfToday = endCal.getTime();			 
+//		
+//		String hql = "from KReservation "
+//				+ "where starttime = :startOfToday ";
+//				//+ "and endtime between :startOfToday and :endOfToday ";
+//		Query query = session.createSQLQuery(hql);
+//		
+//		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		//query.setDate("startOfToday", new Date(1000000000));
+//		//query.setParameter("endOfToday", "2015-11-24 07:00:00");
+//
+//		query.setTimestamp("startOfToday", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+//		List<KReservation> resvs = (List<KReservation>) query.list();
+//		
+//		session.getTransaction().commit();
+//		session.close();
 		
 		Map<String, Set<Integer> > result = new TreeMap<String, Set<Integer>> ();
-		result.put("K001", new HashSet<Integer> (Arrays.asList(1,3,5,6)));
+		result.put("K001", new HashSet<Integer> (Arrays.asList(1,4,5,6)));
 		result.put("K002", new HashSet<Integer> (Arrays.asList(2,4,7,9)));
 		result.put("K003", new HashSet<Integer> (Arrays.asList(1,5,10,12)));
 				
 		return result;
-	}
-	
+	}	
 	public void insertResv(String date, String startHour, String endHour, String facilityID, String studygroupID, int userID) {
 		// Prepare parameters
 		String[] splits = date.split("/");
@@ -105,11 +122,12 @@ public class KReservationDao {
 		
 		// Session
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		Transaction tx = session.getTransaction();
+		tx.begin();
 		
 		KFacility facility = session.get(KFacility.class, Integer.parseInt(facilityID));
 		KUser user = session.get(KUser.class, userID);
-		KStudygroup studygroup = studygroupID==null ? null : session.get(KStudygroup.class, Integer.parseInt(studygroupID));
+		KStudygroup studygroup = studygroupID.equals("null") ? null : session.get(KStudygroup.class, Integer.parseInt(studygroupID));
 		
 		KReservation resv = new KReservation("", 
 											 startTimestamp, 
@@ -117,10 +135,50 @@ public class KReservationDao {
 				                             facility, user, studygroup, KReservation.RsvStatEnum.FIFS, KReservation.MatStatEnum.AVAILABLE);
 		
 		session.save(resv);
+		try {
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void deleteResv(int resvID) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		KReservation resv = session.get(KReservation.class, resvID);
+		session.delete(resv);
+		
 		session.getTransaction().commit();
 		session.close();
 	}
-	
+
+	public void updateResv(String date, String startHour, String endHour, String resvID) {
+		// Prepare parameters
+		String[] splits = date.split("/");
+		int month = Integer.parseInt(splits[0]) - 1;
+		int day = Integer.parseInt(splits[1]);
+		int year = Integer.parseInt(splits[2]);
+		Calendar startCal = new GregorianCalendar(year, month, day, Integer.parseInt(startHour), 0);
+		Calendar endCal = new GregorianCalendar(year, month, day, Integer.parseInt(endHour), 0);
+		Timestamp startTimestamp = new Timestamp(startCal.getTime().getTime());
+		Timestamp endTimestamp = new Timestamp(endCal.getTime().getTime());
+		
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		KReservation resv = session.get(KReservation.class, Integer.parseInt(resvID));
+		resv.setStarttime(startTimestamp);
+		resv.setEndtime(endTimestamp);
+		session.update(resv);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
+
 	public void SetFacilityState(int facilityid, String maintainstatus){
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

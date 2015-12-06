@@ -66,6 +66,7 @@ public class KStudygroupDao {
      	session.getTransaction().commit();
 		session.close();
 	}
+	
 	public void deleteStudygroup(String Groupname) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

@@ -6,18 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 
-<!-- Bootstrap core CSS -->
-<link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<%@include file="../top.jsp"%>
 
 <!-- Custom styles for this template -->
-<link href="../bootstrap/docs/examples/signin/signin.css"
+<link href="${ctx}/bootstrap/docs/examples/signin/signin.css"
 	rel="stylesheet">
 
 </head>
 <body>
 
-	<%@include file="../top.jsp"%>
-	
 	<form class="form-signin" action="${ctx}/accounts/signin" method="post">
 		<h2 class="form-signin-heading">Please sign in</h2>
 		<label for="inputEmail" class="sr-only">Email address</label> <input

@@ -1,5 +1,7 @@
 package neu.edu.cs5200.finalproj.dao;
 
+import java.util.List;
+
 import javax.transaction.Transaction;
 
 import org.hibernate.Query;
@@ -10,61 +12,66 @@ import neu.edu.cs5200.finalproj.model.KUser;
 
 public class KUserDao {
 
+	private SessionFactory sessionFactory;
 
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 
-private SessionFactory sessionFactory;
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-public SessionFactory getSessionFactory() {
-	return sessionFactory;
-}
-
-public void setSessionFactory(SessionFactory sessionFactory) {
-	this.sessionFactory = sessionFactory;
-}
-
-public void InsertKuser(int id, int Role, String name, String loginid, int nuid){
+	public KUser signin(String loginName, String loginPassword) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
-	    KUser u=new KUser();
-	    u.setId(id);
-	    u.setRole(Role);
-	    u.setName(name);
-	    u.setLoginid(loginid);
-	    u.setNuid(nuid);
-	    session.save(u);
-	    session.getTransaction().commit();
-	    session.close();
+		String hql = "from KUser where loginid = :loginid and loginPassword = :loginPassword";
+		Query query = session.createQuery(hql);
+		query.setString("loginid", loginName);
+		query.setString("loginPassword", loginPassword);
+		List<KUser> list = (List<KUser>) query.list();
+
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	public void InsertKuser(int id, int Role, String name, String loginid, int nuid) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		KUser u = new KUser();
+		u.setRole(Role);
+		u.setName(name);
+		u.setLoginid(loginid);
+		u.setNuid(nuid);
+		session.save(u);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	public void DeleteKUser(String loginid) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		String hql = "delete KUser u " + "where u.loginid=:loginid ";
+		Query query = session.createQuery(hql);
+		query.setString("loginid", loginid);
+		int ret = query.executeUpdate();
+		session.getTransaction().commit();
+		session.close();
+
+	}
+
+	public void UpdateKUser(String loginid, int role) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		String hql = "update KUser u set u.role=:role " + "where u.loginid=:loginid ";
+		Query query = session.createQuery(hql);
+		query.setString("loginid", loginid);
+		query.setInteger("role", role);
+		int ret = query.executeUpdate();
+		session.getTransaction().commit();
+		session.close();
+	}
 }
-
-public void DeleteKUser(String loginid){
-	Session session = sessionFactory.openSession();
-	session.beginTransaction();
-	
-	String hql="delete KUser u " 
-			  + "where u.loginid=:loginid ";
-	Query query=session.createQuery(hql);
-	query.setString("loginid", loginid);
-	int ret=query.executeUpdate();
-	session.getTransaction().commit();
-	session.close();
-	
-}
-
-
-public void UpdateKUser(String loginid, int role){
-	Session session = sessionFactory.openSession();
-	session.beginTransaction();
-	
-	String hql="update KUser u set u.role=:role " 
-			  + "where u.loginid=:loginid ";
-	Query query=session.createQuery(hql);
-	query.setString("loginid", loginid);
-	query.setInteger("role", role);
-	int ret=query.executeUpdate();
-	session.getTransaction().commit();
-	session.close();
-}
-}
-
-
