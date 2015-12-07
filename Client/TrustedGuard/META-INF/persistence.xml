@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="SwipeCard">
+		<provider>
+		org.apache.openjpa.persistence.PersistenceProviderImpl
+		</provider>
+		
+		<class>edu.neu.cs5200.finalproj.model.KComputer</class>
+		<class>edu.neu.cs5200.finalproj.model.KFacility</class>
+		<class>edu.neu.cs5200.finalproj.model.KFacilityType</class>
+		<class>edu.neu.cs5200.finalproj.model.KGroupRoom</class>
+		<class>edu.neu.cs5200.finalproj.model.KIndividualRoom</class>
+		<class>edu.neu.cs5200.finalproj.model.KReservation</class>
+        <class>edu.neu.cs5200.finalproj.model.KRights</class>
+		<class>edu.neu.cs5200.finalproj.model.KRole</class>
+		<class>edu.neu.cs5200.finalproj.model.KStudygroup</class>
+		<class>edu.neu.cs5200.finalproj.model.KUser_Studygroup</class>
+		<class>edu.neu.cs5200.finalproj.model.KUser</class>
+		
+		<properties>
+			<property name="openjpa.ConnectionUserName"
+				value="kickdata"/>
+			<property name="openjpa.ConnectionPassword"
+				value="datastarter2015"/>
+			<property name="openjpa.ConnectionURL"
+				value="jdbc:mysql://localhost:3306/kickdatastarter"/>
+			<property name="openjpa.ConnectionDriverName"
+				value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

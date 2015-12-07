@@ -3,7 +3,7 @@
 *.log
 
 # build dir
-/build
+build
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
