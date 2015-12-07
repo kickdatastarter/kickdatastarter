@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+	<package name="account" namespace="/accounts" extends="json-default">
+		<interceptors>
+		    <interceptor name="authKUserInterceptor" class="edu.neu.cs5200.finalproj.interceptor.AuthKUserInterceptor"/>
+		    <interceptor-stack name="authKUserInterceptorStack"> 
+                  <interceptor-ref name="authKUserInterceptor"></interceptor-ref>
+                  <interceptor-ref name="defaultStack"></interceptor-ref>
+        	</interceptor-stack> 
+		</interceptors>
+		
+		<action name="signin" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="signin">
+			<result name="kuser">/index.jsp</result>
+			<result name="login">/accounts/signin.jsp</result>
+			<result name="admin">/admin.jsp</result>
+		</action>
+		
+		<action name="signout" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="signout">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="getMyResv" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="getMyResv">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success">/accounts/myResv.jsp</result>
+		</action>
+		
+		<action name="getMyStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="getMyStudygroup">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success">/accounts/myStudygroup.jsp</result>
+		</action>
+		
+		<action name="getMyStudygroupAjax" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="getMyStudygroupAjax">
+			<result name="success" type="json">
+			    <param name="root">studygroupAjax</param>
+			</result>
+		</action>
+		
+		<action name="getAllFacilitiesAjax" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="getAllFacilitiesAjax">
+			<result name="success" type="json">
+			    <param name="root">facilityAjax</param>
+			</result>
+		</action>
+
+		<action name="makeResv" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="makeResv">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success">/index.jsp</result>
+		</action>
+
+		<action name="deleteResv" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteResv">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success" type="chain">getMyResv</result>
+		</action>
+		
+		<action name="updateResv" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="updateResv">
+			<interceptor-ref name="authKUserInterceptorStack"/>
+			<result name="failure">/accounts/signin.jsp</result>
+			<result name="success" type="chain">getMyResv</result>
+		</action>
+		
+		
+		<action name="addStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="addStudygroup">
+			<result name="success">/accounts/myStudygroup.jsp</result>
+		</action>
+		
+		<action name="deleteStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteStudygroup">
+			<result name="success">/accounts/myStudygroup.jsp</result>
+		</action>
+		
+		<action name="deletepeoplefromStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deletepeoplefromStudygroup">
+			<result name="success">/accounts/myStudygroup.jsp</result>
+		</action>
+		
+		<action name="addpersoninStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="addpersoninStudygroup">
+			<result name="success">/accounts/myStudygroup.jsp</result>
+		</action>
+		
+		
+		<action name="insertUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="insertUser">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="updateUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="updateUser">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="deleteUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteUser">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="insertComputer" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="insertComputer">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="deleteComputer" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteComputer">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="insertGroupRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="insertGroupRoom">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="deleteGroupRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteGroupRoom">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="insertIndividualRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="insertIndividualRoom">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="deleteIndividualRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="deleteIndividualRoom">
+			<result name="success">/admin.jsp</result>
+		</action>
+		
+		<action name="setfacilitystate" class="edu.neu.cs5200.finalproj.action.AccountAction"
+			method="setfacilitystate">
+			<result name="success">/admin.jsp</result>
+		</action>
+	</package>
+
+	
+	<package name="default" extends="struts-default">
+		<action name="index" class="edu.neu.cs5200.finalproj.action.HomeAction"
+			method="getHomeResvData">
+			<result name="success">/index.jsp</result>
+		</action>
+	</package>
+
+</struts>

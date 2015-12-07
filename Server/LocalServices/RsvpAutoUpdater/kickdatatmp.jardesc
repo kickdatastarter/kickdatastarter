@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="kickdatatmp/kickdatatmp.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/kickdatatmp/kickdatatmp.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=kickdatatmp/&lt;{SampleJPATest.java[SampleJPATest" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="true">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <javaElement handleIdentifier="=kickdatatmp/&lt;kickdata"/>
+        <javaElement handleIdentifier="=kickdatatmp/&lt;lib"/>
+        <file path="/kickdatatmp/.classpath"/>
+        <file path="/kickdatatmp/as4jdbc.jardesc"/>
+        <javaElement handleIdentifier="=kickdatatmp/&lt;"/>
+        <folder path="/kickdatatmp/META-INF"/>
+        <file path="/kickdatatmp/log4j.properties"/>
+        <file path="/kickdatatmp/.project"/>
+    </selectedElements>
+</jardesc>

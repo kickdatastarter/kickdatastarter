@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//Spring//DTD BEAN 2.0//EN" 
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://www.physicsboy.org:4096/kickdatastarter" />
+		<property name="username" value="kickdata" />
+		<property name="password" value="datastarter2015" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>edu.neu.cs5200.finalproj.model.KComputer</value>
+				<value>edu.neu.cs5200.finalproj.model.KFacility</value>
+				<value>edu.neu.cs5200.finalproj.model.KFacilityType</value>
+				<value>edu.neu.cs5200.finalproj.model.KGroupRoom</value>
+				<value>edu.neu.cs5200.finalproj.model.KIndividualRoom</value>
+				<value>edu.neu.cs5200.finalproj.model.KReservation</value>
+				<value>edu.neu.cs5200.finalproj.model.KRights</value>
+				<value>edu.neu.cs5200.finalproj.model.KRole</value>
+				<value>edu.neu.cs5200.finalproj.model.KStudygroup</value>
+				<value>edu.neu.cs5200.finalproj.model.KUser_Studygroup</value>
+				<value>edu.neu.cs5200.finalproj.model.KUser</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="kReservationDao" class="edu.neu.cs5200.finalproj.dao.KReservationDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="kStudygroupDao" class="edu.neu.cs5200.finalproj.dao.KStudygroupDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="kFacilityDao" class="edu.neu.cs5200.finalproj.dao.KFacilityDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="kUser_StudygroupDao" class="edu.neu.cs5200.finalproj.dao.KUser_StudygroupDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="kComputerDao" class="edu.neu.cs5200.finalproj.dao.KComputerDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="kGroupRoomDao" class="edu.neu.cs5200.finalproj.dao.KGroupRoomDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="kIndividualRoomDao" class="edu.neu.cs5200.finalproj.dao.KIndividualRoomDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="kUserDao" class="edu.neu.cs5200.finalproj.dao.KUserDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

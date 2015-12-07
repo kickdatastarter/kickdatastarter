@@ -4,7 +4,8 @@ VALUES ('undergraduate'),
 ('doctoral'),
 ('TA'),
 ('RA'),
-('facilityManager');
+('facilityManager'),
+('UserManager');
 
 INSERT INTO  KFacilityType(typename, tablename)
 VALUES ('Individual Room', 'kIndividualRoom'),
@@ -39,44 +40,45 @@ VALUES
 ('04:00:00', 2, '60:00:00', 6, 2),
 ('04:00:00', 3, '60:00:00', 6, 3);
 
-INSERT INTO  KUser(loginid, role, name, nuid)
+INSERT INTO  KUser(loginid, loginPassword, role, name, nuid)
 VALUES
-('a.a', 1, 'aaa', 001779701),
-('b.b', 1, 'bbb', 001779702),
-('c.c', 1, 'ccc', 001779703),
-('d.d', 1, 'ddd', 001999704),
-('e.e', 1, 'eee', 001779705),
-('f.f', 1, 'fff', 001779706),
-('j.j', 1, 'jjj', 001779707),
-('h.h', 1, 'hhh', 001779708),
-('i.i', 1, 'iii', 001779709),
-('g.g', 1, 'ggg', 001779710),
-('k.k', 2, 'kkk', 001779711),
-('l.l', 2, 'lll', 001779712),
-('m.m', 2, 'mmm', 001779713),
-('n.n', 2, 'nnn', 001779714),
-('o.o', 2, 'ooo', 001779715),
-('p.p', 2, 'ppp', 001779716),
-('q.q', 2, 'qqq', 001779717),
-('r.r', 2, 'rrr', 001779718),
-('s.s', 2, 'sss', 001779719),
-('t.t', 2, 'ttt', 001779720),
-('u.u', 3, 'uuu', 001779721),
-('v.v', 3, 'vvv', 001779722),
-('w.w', 3, 'www', 001779723),
-('x.x', 3, 'xxx', 001779724),
-('y.y', 3, 'yyy', 001779725),
-('z.z', 3, 'zzz', 001779726),
-('a.b', 3, 'aab', 001779727),
-('a.c', 3, 'aac', 001779728),
-('a.d', 3, 'aad', 001779729),
-('a.e', 3, 'aae', 001779730),
-('a.f', 4, 'aaf', 001779731),
-('a.g', 4, 'aag', 001779732),
-('a.h', 5, 'aah', 001779733),
-('a.i', 5, 'aai', 001779734),
-('a.j', 6, 'aaj', 001779735),
-('a.k', 6, 'aak', 001999736);
+('a.a', 'defaultPass', 1, 'aaa', 001779701),
+('b.b', 'defaultPass', 1, 'bbb', 001779702),
+('c.c', 'defaultPass', 1, 'ccc', 001779703),
+('d.d', 'defaultPass', 1, 'ddd', 001779704),
+('e.e', 'defaultPass', 1, 'eee', 001779705),
+('f.f', 'defaultPass', 1, 'fff', 001779706),
+('j.j', 'defaultPass', 1, 'jjj', 001779707),
+('h.h', 'defaultPass', 1, 'hhh', 001779708),
+('i.i', 'defaultPass', 1, 'iii', 001779709),
+('g.g', 'defaultPass', 1, 'ggg', 001779710),
+('k.k', 'defaultPass', 2, 'kkk', 001779711),
+('l.l', 'defaultPass', 2, 'lll', 001779712),
+('m.m', 'defaultPass', 2, 'mmm', 001779713),
+('n.n', 'defaultPass', 2, 'nnn', 001779714),
+('o.o', 'defaultPass', 2, 'ooo', 001779715),
+('p.p', 'defaultPass', 2, 'ppp', 001779716),
+('q.q', 'defaultPass', 2, 'qqq', 001779717),
+('r.r', 'defaultPass', 2, 'rrr', 001779718),
+('s.s', 'defaultPass', 2, 'sss', 001779719),
+('t.t', 'defaultPass', 2, 'ttt', 001779720),
+('u.u', 'defaultPass', 3, 'uuu', 001779721),
+('v.v', 'defaultPass', 3, 'vvv', 001779722),
+('w.w', 'defaultPass', 3, 'www', 001779723),
+('x.x', 'defaultPass', 3, 'xxx', 001779724),
+('y.y', 'defaultPass', 3, 'yyy', 001779725),
+('z.z', 'defaultPass', 3, 'zzz', 001779726),
+('a.b', 'defaultPass', 3, 'aab', 001779727),
+('a.c', 'defaultPass', 3, 'aac', 001779728),
+('a.d', 'defaultPass', 3, 'aad', 001779729),
+('a.e', 'defaultPass', 3, 'aae', 001779730),
+('a.f', 'defaultPass', 4, 'aaf', 001779731),
+('a.g', 'defaultPass', 4, 'aag', 001779732),
+('a.h', 'defaultPass', 5, 'aah', 001779733),
+('a.i', 'defaultPass', 5, 'aai', 001779734),
+('a.j', 'defaultPass', 6, 'aaj', 001779735),
+('root@a', 'defaultPass', 7, 'aak', 991999736),
+('root@root', 'defaultPass', 7, 'aaks', 931999736);
 
 INSERT INTO  KFacility(id, type, capacity)
 VALUES
@@ -161,3 +163,10 @@ VALUES (1,2),
 (10,2),
 (10,3);
 
+INSERT INTO KReservation (description, starttime, endtime, facility_id, reserver_id, group_id, resvstatus)
+VALUES ('REV0', '2015-12-10 03:00:00', '2015-12-10 04:00:00', 7, 1, 2, 'RESERVED'),
+('REV1', '2015-12-10 04:00:00', '2015-12-10 06:00:00', 5, 2, null, 'RESERVED'),
+('REV2', '2015-12-11 03:00:00', '2015-12-11 04:30:00', 3, 1, null, 'RESERVED'),
+('REV3', '2015-12-11 06:00:00', '2015-12-11 11:00:00', 4, 4, null, 'RESERVED');
+INSERT INTO KReservation (description, starttime, endtime, facility_id, reserver_id, maintainstatus)
+VALUES ('MNG0', '2015-12-11 04:00:00', '2015-12-12 03:00:00', 4, 35, 'MAINTAINING');
