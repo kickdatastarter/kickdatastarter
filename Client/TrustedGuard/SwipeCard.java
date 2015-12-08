@@ -72,7 +72,7 @@ public class SwipeCard {
 		q.setParameter(1, ts);
 		q.setParameter(2, ip.facilityId);
 		@SuppressWarnings("unchecked")
-		List<KReservation> resvs = (List<KReservation>) q.getResultList();
+		List<KReservation> resvs = q.getResultList();
 		for(KReservation rsv4usr:resvs){
 			if(rsv4usr.getMaintainstatus() == KReservation.MatStatEnum.MAINTAINING){
 				throw new IOException("Managing");
@@ -86,7 +86,7 @@ public class SwipeCard {
 			q.setParameter(1, rsv4usr);
 			q.setParameter(2, ip.nuid);
 			@SuppressWarnings("unchecked")
-			List<KUser> usrs = (List<KUser>)q.getResultList();
+			List<KUser> usrs = q.getResultList();
 			if(!(usrs.isEmpty()==false ^ rsv4usr.getResvstatus() == KReservation.RsvStatEnum.FIFS)){
 				throw new IOException("NotAllowedAccess");
 			}

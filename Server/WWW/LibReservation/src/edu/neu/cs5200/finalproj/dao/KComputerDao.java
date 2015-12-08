@@ -3,12 +3,13 @@ package edu.neu.cs5200.finalproj.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import java.util.*;
 
 import edu.neu.cs5200.finalproj.model.KComputer;
 import edu.neu.cs5200.finalproj.model.KFacility;
 import edu.neu.cs5200.finalproj.model.KFacilityType;
 import edu.neu.cs5200.finalproj.model.KUser;
+
+import java.util.*;
 
 public class KComputerDao {
 	private SessionFactory sessionFactory;

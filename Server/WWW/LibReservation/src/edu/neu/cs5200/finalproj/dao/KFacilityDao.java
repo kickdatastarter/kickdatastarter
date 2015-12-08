@@ -50,7 +50,7 @@ public class KFacilityDao {
 				facName = ((KIndividualRoom)fac).getName();
 			}
 			
-			result.put(Integer.toString(fac.getId()), facName);
+			result.put(Integer.toString(fac.getId()), facName + " (" + fac.getCapacity() + ")");
 		}
 		return result;
 	}

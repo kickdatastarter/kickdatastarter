@@ -23,20 +23,20 @@ import org.springframework.core.io.FileSystemResource;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 
-import net.sf.json.JSONObject;
-import edu.neu.cs5200.finalproj.dao.KFacilityDao;
 import edu.neu.cs5200.finalproj.dao.KComputerDao;
+import edu.neu.cs5200.finalproj.dao.KFacilityDao;
 import edu.neu.cs5200.finalproj.dao.KGroupRoomDao;
 import edu.neu.cs5200.finalproj.dao.KIndividualRoomDao;
 import edu.neu.cs5200.finalproj.dao.KReservationDao;
 import edu.neu.cs5200.finalproj.dao.KStudygroupDao;
-import edu.neu.cs5200.finalproj.dao.KUser_StudygroupDao;
 import edu.neu.cs5200.finalproj.dao.KUserDao;
+import edu.neu.cs5200.finalproj.dao.KUser_StudygroupDao;
 import edu.neu.cs5200.finalproj.model.KFacilityType;
 import edu.neu.cs5200.finalproj.model.KReservation;
 import edu.neu.cs5200.finalproj.model.KStudygroup;
 import edu.neu.cs5200.finalproj.model.KUser;
 import edu.neu.cs5200.finalproj.util.SpringContextUtil;
+import net.sf.json.JSONObject;
 
 public class AccountAction implements Action {
 
@@ -484,7 +484,7 @@ public class AccountAction implements Action {
 
 		studygroupAjax = new HashMap<String, String>();
 		for (Entry<KStudygroup, List<KUser>> entry : this.allStudygroup.entrySet()) {
-			studygroupAjax.put(Integer.toString(entry.getKey().getId()), entry.getKey().getName());
+			studygroupAjax.put(Integer.toString(entry.getKey().getId()), entry.getKey().getName() + " (" + entry.getValue().size() + ")");
 		}
 
 		return SUCCESS;
@@ -499,18 +499,36 @@ public class AccountAction implements Action {
 
 	public String makeResv() throws Exception {
 		KReservationDao resvDao = SpringContextUtil.getService("kReservationDao");
-		String transactionResult = "Insertion Succeeded.";
 		try {
 			resvDao.insertResv(datePicker_makeResv, startHour_makeResv, endHour_makeResv, facilityDdl_makeResv,
 					studygroupDdl_makeResv, ((KUser) this.session.get("user")).getId(), KReservation.RsvStatEnum.RESERVED, null);
 		} catch (Exception e) {
-			transactionResult = "Insertion Failed.";
+			this.request.put("TransactionFailMsg", "Insertion Failed.");
 		}
 
-		this.request.put("isMakeResvSucceed", transactionResult);
+		return SUCCESS;
+	}
+	
+	public String deleteResv() throws Exception {
+		KReservationDao resvDao = SpringContextUtil.getService("kReservationDao");
+		try {
+			resvDao.deleteResv(resvID_delResv);
+		} catch (Exception e) {
+			this.request.put("TransactionFailMsg", "Deletion Failed.");
+		} 
 
 		return SUCCESS;
+	}
 
+	public String updateResv() throws Exception {
+		KReservationDao resvDao = SpringContextUtil.getService("kReservationDao");
+		try {
+			resvDao.updateResv(datePicker_updateResv, startHour_updateResv, endHour_updateResv, resvID_updateResv);
+		} catch (Exception e) {
+			this.request.put("TransactionFailMsg", "Update Failed.");
+		}
+
+		return SUCCESS;
 	}
 
 	public String addStudygroup() {
@@ -609,20 +627,6 @@ public class AccountAction implements Action {
 		KReservationDao setfacilitystate = SpringContextUtil.getService("kReservationDao");
 		setfacilitystate.insertResv(maintaindate, maintainstartHour, maintainendHour, maintainfacilityID, "null", 
 					((KUser) this.session.get("user")).getId(), null, KReservation.MatStatEnum.MAINTAINING);;
-
-		return SUCCESS;
-	}
-
-	public String deleteResv() throws Exception {
-		KReservationDao resvDao = SpringContextUtil.getService("kReservationDao");
-		resvDao.deleteResv(resvID_delResv);
-
-		return SUCCESS;
-	}
-
-	public String updateResv() throws Exception {
-		KReservationDao resvDao = SpringContextUtil.getService("kReservationDao");
-		resvDao.updateResv(datePicker_updateResv, startHour_updateResv, endHour_updateResv, resvID_updateResv);
 
 		return SUCCESS;
 	}

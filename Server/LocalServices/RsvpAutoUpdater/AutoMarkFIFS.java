@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +10,6 @@ import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
 import edu.neu.cs5200.finalproj.model.KReservation;
-import edu.neu.cs5200.finalproj.model.KReservation.RsvStatEnum;
 
 /**
  * 
@@ -34,7 +32,6 @@ public class AutoMarkFIFS implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		SimpleDateFormat datefmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date parsedDate;
@@ -42,7 +39,6 @@ public class AutoMarkFIFS implements Runnable {
 			parsedDate = datefmt.parse("2015-12-10 15:30:00");
 			ts = new Timestamp(parsedDate.getTime());
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		EntityTransaction tx = emanager.getTransaction();
@@ -54,7 +50,7 @@ public class AutoMarkFIFS implements Runnable {
 		q1.setParameter(1, ts);
 		q1.setParameter(2, KReservation.RsvStatEnum.RESERVED);
 		@SuppressWarnings("unchecked")
-		List<KReservation> resvs = (List<KReservation>) q1.getResultList();
+		List<KReservation> resvs = q1.getResultList();
 		for(KReservation rsv4usr:resvs){
 			rsv4usr.setResvstatus(KReservation.RsvStatEnum.FIFS);
 			this.emanager.merge(rsv4usr);

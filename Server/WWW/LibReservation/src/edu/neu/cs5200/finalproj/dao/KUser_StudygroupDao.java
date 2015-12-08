@@ -1,12 +1,12 @@
 package edu.neu.cs5200.finalproj.dao;
 
-import edu.neu.cs5200.finalproj.model.KStudygroup;
-import edu.neu.cs5200.finalproj.model.KUser;
-import edu.neu.cs5200.finalproj.model.KUser_Studygroup;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import edu.neu.cs5200.finalproj.model.KStudygroup;
+import edu.neu.cs5200.finalproj.model.KUser;
+import edu.neu.cs5200.finalproj.model.KUser_Studygroup;
 
 public class KUser_StudygroupDao {
 	private SessionFactory sessionFactory;

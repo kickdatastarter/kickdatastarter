@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="TrustedGuard/guard.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/TrustedGuard/TrustedGuard.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=TrustedGuard/&lt;{TrustedGuard.java[TrustedGuard" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="true">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <javaElement handleIdentifier="=TrustedGuard/&lt;edu.neu.cs5200.finalproj.model"/>
+        <folder path="/TrustedGuard/META-INF"/>
+        <file path="/TrustedGuard/log4j.properties"/>
+        <javaElement handleIdentifier="=TrustedGuard/&lt;lib"/>
+        <javaElement handleIdentifier="=TrustedGuard/&lt;"/>
+        <javaElement handleIdentifier="=TrustedGuard/&lt;logs"/>
+        <file path="/TrustedGuard/run.sh"/>
+    </selectedElements>
+</jardesc>

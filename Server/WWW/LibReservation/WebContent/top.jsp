@@ -37,7 +37,6 @@
 			%>
 			<div class="navbar-right navbar-form">
 				<a class="btn btn-primary" href="${ctx}/accounts/signin.jsp">Sign in</a> 
-				<a class="btn btn-default" href="${ctx}/accounts/signup.jsp">Sign up</a>
 			</div>
 			<%
 				} else {

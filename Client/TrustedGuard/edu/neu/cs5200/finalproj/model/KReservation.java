@@ -5,8 +5,6 @@ package edu.neu.cs5200.finalproj.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
-
 import javax.persistence.*;
 
 /**

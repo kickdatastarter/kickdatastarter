@@ -187,14 +187,19 @@ public class KReservationDao {
 
 	public void deleteResv(int resvID) {
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 
 		KReservation resv = session.get(KReservation.class, resvID);
 		session.delete(resv);
-
-		session.getTransaction().commit();
-		session.close();
-	}
+		
+		try {
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}	}
 
 	public void updateResv(String date, String startHour, String endHour, String resvID) {
 		// Prepare parameters
@@ -208,15 +213,21 @@ public class KReservationDao {
 		Timestamp endTimestamp = new Timestamp(endCal.getTime().getTime());
 
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 
 		KReservation resv = session.get(KReservation.class, Integer.parseInt(resvID));
 		resv.setStarttime(startTimestamp);
 		resv.setEndtime(endTimestamp);
 		session.update(resv);
 
-		session.getTransaction().commit();
-		session.close();
+		try {
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 
 	public void SetFacilityState(int facilityid, String maintainstatus) {
@@ -224,8 +235,6 @@ public class KReservationDao {
 		session.beginTransaction();
 		String hql = "update KReservation r set r.maintainstatus = :maintainstatus "
 				+ "where r.facility.id = :facilityid ";
-		// String hql1="save KReservation r set r.maintainstatus =
-		// :maintainstatus ";
 
 		Query query = session.createQuery(hql);
 		query.setInteger("facilityid", facilityid);

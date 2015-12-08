@@ -16,9 +16,9 @@
 
 <body>
 
-	<form class="form-signin" action="${ctx}/index" method="get">
+	<form class="form-signin" id="form_searchFacility" action="${ctx}/index" method="get">
 		<label >Attendence: </label> 
-			<input required autofocus name="attendence">
+			<input required autofocus name="attendence" >
 			
 		<br>
 
@@ -27,6 +27,8 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit"
 			value="login" name="action">Search</button>
 	</form>
+	
+	<label id="displayedDate"></label>
 
 	<table class="table table-striped">
 		<thead>
@@ -91,7 +93,7 @@
 			<div class="modal-content">
 				<div class="modal-body">
 
-					<form class="form-signin" action="${ctx}/accounts/makeResv" method="post">
+					<form class="form-signin" action="${ctx}/accounts/makeResv" method="post" onsubmit="return check();">
 						<label>Facility: </label> <select name="facilityDdl_makeResv" id="facilityDdl_makeResv"></select>
 						<br>
 						<label>Group: </label> <select name="studygroupDdl_makeResv" id="studygroupDdl_makeResv"></select> 
@@ -116,10 +118,24 @@
 		var now = new Date(); 
 	
 		$(function() {
+			$("#form_searchFacility").validate({
+				rules: {
+					attendence: "digits"			
+				}
+			});
 			
-			var isMakeResvSucceed = '<%=request.getAttribute("isMakeResvSucceed")%>';
-			if(isMakeResvSucceed !== "null") {
-				alert(isMakeResvSucceed);
+			// Alert TransactionFailMsg
+			var TransactionFailMsg = '<%=request.getAttribute("TransactionFailMsg")%>';
+			if(TransactionFailMsg !== "null") {
+				alert(TransactionFailMsg);
+			}
+			
+			// Displayed date
+			var searchedDate = '<%=request.getAttribute("datePicker_searchFacility")%>';
+			if(searchedDate !== "null") {
+				$("#displayedDate").text(searchedDate);
+			} else {
+				$("#displayedDate").text(now.getMonth()+1 + "/" + now.getDate() + "/" + now.getFullYear());
 			}
 			
 			$("#datePicker_searchFacility").datepicker({
@@ -187,6 +203,21 @@
 				}
 			});
 		};
+		
+		function check() {
+			var selectedFac = $("#facilityDdl_makeResv option:selected").text();
+			var facCapacity = (Number)((selectedFac.split("("))[1].split(")")[0]);
+			
+			var selectedGroup = $("#studygroupDdl_makeResv option:selected").text();
+			var groupSize = (Number)((selectedGroup.split("("))[1].split(")")[0]);
+			
+			if (facCapacity < groupSize) {
+				alert("Facility capacity less than group size!")
+				return false;
+			}
+			return true;
+			
+		}
 	</script>
 
 </body>

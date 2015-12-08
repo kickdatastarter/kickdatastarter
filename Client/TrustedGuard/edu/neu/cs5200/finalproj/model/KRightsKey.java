@@ -5,8 +5,6 @@ package edu.neu.cs5200.finalproj.model;
 
 import java.io.Serializable;
 
-import javax.persistence.ManyToOne;
-
 /**
  * @author physicsboy
  *

@@ -40,8 +40,8 @@
 							<tr>
 								<td><s:property value="facility.name" /></td>
 								<td><s:property value="group.name" /></td>
-								<td><s:property value="starttime" /></td>
-								<td><s:property value="endtime" /></td>
+								<td><s:date name="starttime" format="MM/dd/yyyy HH:mm:ss" /></td>
+								<td><s:date name="endtime" format="MM/dd/yyyy HH:mm:ss" /></td>
 								<td><s:a class="btn btn-primary" href="/LibReservation/accounts/deleteResv?resvID_delResv=%{id}">Delete</s:a>
 									<s:a class="btn btn-primary" href="" data-toggle="modal" data-target="#myModal" data-resvid="%{id}">Update</s:a>
 									<%-- <s:a> tag automatically adds href, while i cannot have href here. --%>
@@ -82,6 +82,13 @@
 		var now = new Date();
 	
 		$(function() {			
+			
+			// Alert TransactionFailMsg
+			var TransactionFailMsg = '<%=request.getAttribute("TransactionFailMsg")%>';
+			if(TransactionFailMsg !== "null") {
+				alert(TransactionFailMsg);
+			}
+			
 			$('#myModal').on('show.bs.modal', function (event) {
 				var button = $(event.relatedTarget);
   				var resvID = button.data('resvid');
