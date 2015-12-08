@@ -503,7 +503,7 @@ public class AccountAction implements Action {
 			resvDao.insertResv(datePicker_makeResv, startHour_makeResv, endHour_makeResv, facilityDdl_makeResv,
 					studygroupDdl_makeResv, ((KUser) this.session.get("user")).getId(), KReservation.RsvStatEnum.RESERVED, null);
 		} catch (Exception e) {
-			this.request.put("TransactionFailMsg", "Insertion Failed.");
+			this.request.put("TransactionFailMsg", "Insertion Failed. "+e.getMessage());
 		}
 
 		return SUCCESS;
