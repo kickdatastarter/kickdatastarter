@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -41,7 +42,7 @@ public class KStudygroupDao {
 		query.setInteger("userId", userId);
 		List<Object[]> list = (List<Object[]>)query.list();
 		
-		Map<KStudygroup, List<KUser> > result = new HashMap<KStudygroup, List<KUser> >();
+		Map<KStudygroup, List<KUser> > result = new TreeMap<KStudygroup, List<KUser> >(new KStudygroup());
 		for(Object[] object : list) {
 			KStudygroup sg = (KStudygroup)object[0];
 			KUser usr = (KUser)object[1];
