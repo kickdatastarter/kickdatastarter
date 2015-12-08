@@ -7,7 +7,7 @@ FOR EACH ROW
 BEGIN
 #!!!since starttime is not null, so set it to null will reject insert/update
 #BASIC_CHECK(SAME_DAY_REQUIRED)
-	IF ( DATE(NEW.starttime) != DATE(NEW.endtime) AND NEW.maintainstatus != 'MAINTAINING') THEN
+	IF ( DATE(NEW.starttime) != DATE(NEW.endtime) AND  NEW.maintainstatus IS null) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'BASIC_CHECK(SAME_DAY_REQUIRED)', MYSQL_ERRNO = 1001;
 #TIME_CONFLICT_CHECK(IGNORE MAINTAINING)
@@ -15,7 +15,7 @@ BEGIN
 										FROM KReservation r
 										WHERE ((r.starttime >= NEW.starttime AND r.starttime < NEW.endtime) OR
 											 		 (NEW.starttime >= r.starttime AND NEW.starttime < r.endtime)) AND
-													NEW.maintainstatus != 'MAINTAINING'
+													r.facility_id=NEW.facility_id AND NEW.maintainstatus IS null
 									)
 					) THEN
 		SIGNAL SQLSTATE '45000' 
@@ -38,7 +38,7 @@ BEGIN
 				FROM KRights r, KUser u, KFacility f
 				WHERE (u.id=NEW.id AND f.id=NEW.facility_id) AND
 				(r.role=u.role AND r.facilitytype=f.type)
-			) AND NEW.maintainstatus IS NOT null
+			) AND NEW.maintainstatus IS null
 		 ) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'MAX_TIME_PER_RESV_CHECK', MYSQL_ERRNO = 1001;
@@ -57,7 +57,7 @@ BEGIN
 							KFacility f2 ,KUser u2, KRights ri
 							WHERE f2.id=NEW.facility_id AND f2.type=ri.facilitytype AND
 							NEW.reserver_id=u2.id AND	u2.role=ri.role
-						)
+						) AND NEW.maintainstatus IS null
 					) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'MAX_RESV_PER_DAY_CHECK', MYSQL_ERRNO = 1001;
@@ -91,7 +91,7 @@ FOR EACH ROW
 BEGIN
 #!!!since starttime is not null, so set it to null will reject insert/update
 #BASIC_CHECK(SAME_DAY_REQUIRED)
-	IF ( DATE(NEW.starttime) != DATE(NEW.endtime) AND NEW.maintainstatus != 'MAINTAINING') THEN
+	IF ( DATE(NEW.starttime) != DATE(NEW.endtime) AND  NEW.maintainstatus IS null) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'BASIC_CHECK(SAME_DAY_REQUIRED)', MYSQL_ERRNO = 1001;
 #TIME_CONFLICT_CHECK(IGNORE MAINTAINING)
@@ -99,7 +99,8 @@ BEGIN
 										FROM KReservation r
 										WHERE ((r.starttime >= NEW.starttime AND r.starttime < NEW.endtime) OR
 											 		 (NEW.starttime >= r.starttime AND NEW.starttime < r.endtime)) AND
-													NEW.maintainstatus != 'MAINTAINING'
+													r.facility_id=NEW.facility_id AND NEW.maintainstatus IS null AND
+													r.reserver_id!=NEW.reserver_id
 									)
 					) THEN
 		SIGNAL SQLSTATE '45000' 
@@ -122,7 +123,7 @@ BEGIN
 				FROM KRights r, KUser u, KFacility f
 				WHERE (u.id=NEW.id AND f.id=NEW.facility_id) AND
 				(r.role=u.role AND r.facilitytype=f.type)
-			) AND NEW.maintainstatus IS NOT null
+			) AND NEW.maintainstatus IS null
 		 ) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'MAX_TIME_PER_RESV_CHECK', MYSQL_ERRNO = 1001;
@@ -136,12 +137,12 @@ BEGIN
 									WHERE f1.id=NEW.facility_id
 								)
 							)
-						)	+ 1 <
+						)	+ 1 >
 						(SELECT ri.max_resv_per_day FROM
 							KFacility f2 ,KUser u2, KRights ri
 							WHERE f2.id=NEW.facility_id AND f2.type=ri.facilitytype AND
 							NEW.reserver_id=u2.id AND	u2.role=ri.role
-						)
+						) AND NEW.maintainstatus IS null
 					) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'MAX_RESV_PER_DAY_CHECK', MYSQL_ERRNO = 1001;

@@ -89,22 +89,22 @@
 		
 		<action name="addStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="addStudygroup">
-			<result name="success">/accounts/myStudygroup.jsp</result>
+			<result name="success" type="chain">getMyStudygroup</result>
 		</action>
 		
 		<action name="deleteStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deleteStudygroup">
-			<result name="success">/accounts/myStudygroup.jsp</result>
+			<result name="success" type="chain">getMyStudygroup</result>
 		</action>
 		
 		<action name="deletepeoplefromStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deletepeoplefromStudygroup">
-			<result name="success">/accounts/myStudygroup.jsp</result>
+			<result name="success" type="chain">getMyStudygroup</result>
 		</action>
 		
 		<action name="addpersoninStudygroup" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="addpersoninStudygroup">
-			<result name="success">/accounts/myStudygroup.jsp</result>
+			<result name="success" type="chain">getMyStudygroup</result>
 		</action>
 		
 		
