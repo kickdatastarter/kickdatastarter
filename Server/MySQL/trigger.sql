@@ -32,11 +32,11 @@ BEGIN
 					) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'FACILITY_CAPACITY_CHECK', MYSQL_ERRNO = 1001;
-#MAX_TIME_PER_RESV_CHECK
+#MAX_TIME_PER_RESV_CHECK(IGNORE MAINTAINING)
 	ELSEIF (TIMEDIFF(NEW.endtime, NEW.starttime) > 
 			(SELECT r.max_time_per_resv
 				FROM KRights r, KUser u, KFacility f
-				WHERE (u.id=NEW.id AND f.id=NEW.facility_id) AND
+				WHERE (u.id=NEW.reserver_id AND f.id=NEW.facility_id) AND
 				(r.role=u.role AND r.facilitytype=f.type)
 			) AND NEW.maintainstatus IS null
 		 ) THEN
@@ -100,7 +100,7 @@ BEGIN
 										WHERE ((r.starttime >= NEW.starttime AND r.starttime < NEW.endtime) OR
 											 		 (NEW.starttime >= r.starttime AND NEW.starttime < r.endtime)) AND
 													r.facility_id=NEW.facility_id AND NEW.maintainstatus IS null AND
-													r.reserver_id!=NEW.reserver_id
+													r.reserver_id!=NEW.reserver_id AND r.id!= NEW.id
 									)
 					) THEN
 		SIGNAL SQLSTATE '45000' 
@@ -117,11 +117,11 @@ BEGIN
 					) THEN
 		SIGNAL SQLSTATE '45000' 
 		SET MESSAGE_TEXT = 'FACILITY_CAPACITY_CHECK', MYSQL_ERRNO = 1001;
-#MAX_TIME_PER_RESV_CHECK
+#MAX_TIME_PER_RESV_CHECK(IGNORE MAINTAINING)
 	ELSEIF (TIMEDIFF(NEW.endtime, NEW.starttime) > 
 			(SELECT r.max_time_per_resv
 				FROM KRights r, KUser u, KFacility f
-				WHERE (u.id=NEW.id AND f.id=NEW.facility_id) AND
+				WHERE (u.id=NEW.reserver_id AND f.id=NEW.facility_id) AND
 				(r.role=u.role AND r.facilitytype=f.type)
 			) AND NEW.maintainstatus IS null
 		 ) THEN

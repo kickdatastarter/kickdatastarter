@@ -97,7 +97,7 @@ public class AutoMarkFIFS extends TimerTask {
 		//find reservation still on "reserved" status
 		String qry = "SELECT r "
 				+ "FROM KReservation r "
-				+ "WHERE (r.starttime<=?1 AND r.resvstatus=?2) "
+				+ "WHERE r.starttime<=?1 AND r.resvstatus=?2 "
 				+ "AND r.maintainstatus IS null";
 		Query q1 = this.emanager.createQuery(qry);
 		q1.setParameter(1, ts);

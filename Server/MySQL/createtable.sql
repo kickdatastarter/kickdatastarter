@@ -96,5 +96,5 @@ CREATE TABLE KUser_Studygroup (
 	primary key (userid, groupid)
 );
 
-source trigger.sql;
-source inserttable.sql;
+source /home/physicsboy/kickdatastarter/Server/MySQL/trigger.sql
+source /home/physicsboy/kickdatastarter/Server/MySQL/inserttable.sql
