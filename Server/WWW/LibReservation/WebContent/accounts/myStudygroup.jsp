@@ -41,7 +41,9 @@
 								<td><s:property value="key.name" /></td>
 								<td>
 									<s:iterator value="value">
-										<s:property value="loginid" /> <br>
+										<s:property value="loginid" />
+										<s:property value="%{'(id=' + id + ')'}" />
+										<br>
 									</s:iterator>
 								</td>
 							</tr>
@@ -63,8 +65,8 @@
 			    <h3>Add a person into a group</h3>
 			    <form action="${ctx}/accounts/addpersoninStudygroup" 
 			        method="post"> 
-			        <label> groupid</label> <input name="newGroupid"> <label> 
-			            userid</label> <input name="user1"> 
+			        <label>Group: </label> <select name="newGroupid" id="studygroupDdl_addPerson"></select>
+			        <label>UserID: </label> <input name="user1">
 			            
 			        <button type="submit" value="login" name="action">Add</button>  
 			    </form> 
@@ -83,8 +85,8 @@
 			    <h3>Delete a person from a group</h3>
 			    <form action="${ctx}/accounts/deletepeoplefromStudygroup" 
 			        method="post"> 
-			        <label> groupid</label> <input name="Groupid"> <label> 
-			            userid</label> <input name="userid"> 
+			        <label>Group: </label> <select name="Groupid" id="studygroupDdl_deletePerson"></select>
+			        <label>UserID: </label> <input name="userid">
 			            
 			        <button type="submit" value="login" name="action">delete</button>
 			        
@@ -93,6 +95,24 @@
 		</div>
 	</div>	
 	
+	<script type="text/javascript">
+	
+	   $(function() {
+		   // Get my groups
+           $.ajax({
+               type : "get",
+               url : "${ctx}/accounts/getMyStudygroupAjax",
+               dataType : "json",
+           }).success(function(result) {
+               $("#studygroupDdl_deletePerson").empty();
+               $("#studygroupDdl_addPerson").empty();
+               $.each(result, function(key, val) {
+                   $("#studygroupDdl_deletePerson").append("<option value=" + key + ">" + val + "</option>");
+                   $("#studygroupDdl_addPerson").append("<option value=" + key + ">" + val + "</option>");
+               });
+           });
+	   });
+	</script>
 
 	
 </body>

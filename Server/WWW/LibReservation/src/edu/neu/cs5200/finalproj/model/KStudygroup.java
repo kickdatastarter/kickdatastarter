@@ -5,6 +5,7 @@ package edu.neu.cs5200.finalproj.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Comparator;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -22,7 +23,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-public class KStudygroup implements Serializable {
+public class KStudygroup implements Serializable, Comparator<KStudygroup> {
 
 	/**
 	 * 
@@ -79,5 +80,17 @@ public class KStudygroup implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public int compare(KStudygroup arg0, KStudygroup arg1) {
+		// TODO Auto-generated method stub
+		return arg0.getId()-arg1.getId();
+	}
+	/*
+	@Override
+	public int compareTo(KStudygroup arg0) {
+		// TODO Auto-generated method stub
+		return this.getId() - arg0.getId();
+	}
+	*/
 }
