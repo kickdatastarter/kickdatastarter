@@ -31,19 +31,23 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Group Name</th>
-							<th>Members</th>
+							<th>Group Name (id)</th>
+							<th>Members (id)</th>
 						</tr>
 					</thead>
 					<tbody>
 						<s:iterator value="allStudygroup">
 							<tr>
-								<td><s:property value="key.name" /></td>
+								<td>
+								    <s:iterator value="key">
+                                        <s:property value="name" />
+                                        <s:property value="%{'(' + id + ')'}" /> 
+								    </s:iterator>
+								</td>
 								<td>
 									<s:iterator value="value">
-										<s:property value="loginid" />
-										<s:property value="%{'(id=' + id + ')'}" />
-										<br>
+										<s:property value="loginid" /> 
+                                        <s:property value="%{'(' + id + ')'}" /> <br>
 									</s:iterator>
 								</td>
 							</tr>
@@ -65,8 +69,8 @@
 			    <h3>Add a person into a group</h3>
 			    <form action="${ctx}/accounts/addpersoninStudygroup" 
 			        method="post"> 
-			        <label>Group: </label> <select name="newGroupid" id="studygroupDdl_addPerson"></select>
-			        <label>UserID: </label> <input name="user1">
+                    <label>Group: </label> <select name="newGroupid" id="studygroupDdl_addPerson"></select>
+                    <label>UserID: </label> <input name="user1">
 			            
 			        <button type="submit" value="login" name="action">Add</button>  
 			    </form> 
@@ -85,8 +89,8 @@
 			    <h3>Delete a person from a group</h3>
 			    <form action="${ctx}/accounts/deletepeoplefromStudygroup" 
 			        method="post"> 
-			        <label>Group: </label> <select name="Groupid" id="studygroupDdl_deletePerson"></select>
-			        <label>UserID: </label> <input name="userid">
+                    <label>Group: </label> <select name="Groupid" id="studygroupDdl_deletePerson"></select>
+                    <label>UserID: </label> <input name="userid">
 			            
 			        <button type="submit" value="login" name="action">delete</button>
 			        
@@ -95,10 +99,10 @@
 		</div>
 	</div>	
 	
-	<script type="text/javascript">
-	
-	   $(function() {
-		   // Get my groups
+    <script type="text/javascript">
+    
+       $(function() {
+           // Get my groups
            $.ajax({
                type : "get",
                url : "${ctx}/accounts/getMyStudygroupAjax",
@@ -111,9 +115,8 @@
                    $("#studygroupDdl_addPerson").append("<option value=" + key + ">" + val + "</option>");
                });
            });
-	   });
-	</script>
-
+       });
+    </script>
 	
 </body>
 </html>

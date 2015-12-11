@@ -452,6 +452,10 @@ public class AccountAction implements Action {
 			this.session.put("user", curUser);
 			if (curUser.getRole() == 6)
 				return "admin";
+			
+			else if(curUser.getRole() == 7)
+				return "admin";
+			
 			else
 				return "kuser";
 		} else {

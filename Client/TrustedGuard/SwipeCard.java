@@ -23,15 +23,56 @@ import edu.neu.cs5200.finalproj.model.KUser;
  *
  */
 public class SwipeCard {
+	private static final String timeparten = "yyyy-MM-dd/hh:mm:ss";
+	public static enum AccessCodeEnum {OK, MAINTAINING, LATE, RESERVEDBYOTHERS, OBJECTUSED};
 	public static class InputParameter {
 		private int nuid;
 		private int facilityId;
+		private Timestamp datetime;
 		/**
 		 * @param id
 		 */
 		public InputParameter(int id, int fid) {
+			super();
 			this.nuid = id;
 			this.facilityId = fid;
+			String datetime = "2015-12-11/07:30:00";
+			SimpleDateFormat datefmt = new SimpleDateFormat(timeparten);
+			Date parsedDate;
+			Timestamp ts=null;
+			try {
+				parsedDate = datefmt.parse(datetime);
+				ts = new Timestamp(parsedDate.getTime());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			this.datetime = ts;
+		}
+		/**
+		 * @param nuid
+		 * @param facilityId
+		 * @param datetime
+		 */
+		public InputParameter(int nuid, int facilityId, String datetime) {
+			super();
+			this.nuid = nuid;
+			this.facilityId = facilityId;
+			Timestamp ts=null;
+			if(datetime.compareTo("NOW") == 0){
+				ts = new Timestamp(System.currentTimeMillis());
+			} else {
+				SimpleDateFormat datefmt = new SimpleDateFormat(timeparten);
+				Date parsedDate;
+				try {
+					parsedDate = datefmt.parse(datetime);
+					ts = new Timestamp(parsedDate.getTime());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			this.datetime = ts;
 		}
 		
 	}
@@ -48,52 +89,66 @@ public class SwipeCard {
 		this.emanager = emanager;
 	}
 
-	public boolean tryAccessFacility() throws IOException, SQLException{
+	public AccessCodeEnum tryAccessFacility () throws IOException, SQLException{
+		AccessCodeEnum accesscode = AccessCodeEnum.OK;
 		if(used==true)
-			throw new IOException("ObjectAlreadyUsed");
+			return AccessCodeEnum.OBJECTUSED;
 		used=true;
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		SimpleDateFormat datefmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		Date parsedDate;
-		try {
-			parsedDate = datefmt.parse("2015-12-11 07:30:00");
-			ts = new Timestamp(parsedDate.getTime());
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		SimpleDateFormat datefmt = new SimpleDateFormat(timeparten);
+		String time_s = datefmt.format(new Date(ip.datetime.toGMTString()));
+		System.out.println("The Time you indicated(simulate) is: " + time_s);
+		System.out.println("The Facility id you indicated(simulate) is: " + ip.facilityId);
+		System.out.println("The NUID of your card(simulate) is: "+ip.nuid);
+		
 		EntityTransaction tx = emanager.getTransaction();
 		tx.begin();
 		String qry = "SELECT r "
-				+ "FROM KReservation r, KUser_Studygroup us, KUser u "
+				+ "FROM KReservation r "
 				+ "WHERE (r.starttime<=?1 AND r.endtime>=?1) AND "
 				+ "r.facility.id = ?2";
 		Query q = this.emanager.createQuery(qry);
-		q.setParameter(1, ts);
+		q.setParameter(1, ip.datetime);
 		q.setParameter(2, ip.facilityId);
 		@SuppressWarnings("unchecked")
 		List<KReservation> resvs = q.getResultList();
+CheckReservation:
 		for(KReservation rsv4usr:resvs){
+			System.out.println("Found a reservation, " +
+					"Reserver NUID: " +rsv4usr.getReserver().getNuid() +
+					"\r\nStartTime: " + datefmt.format(rsv4usr.getStarttime()) +
+					", EndTime: " + datefmt.format(rsv4usr.getEndtime()) + 
+					"\r\nReservation Status: " + rsv4usr.getResvstatus() +
+					", Maintaining Status: " + rsv4usr.getMaintainstatus());
 			if(rsv4usr.getMaintainstatus() == KReservation.MatStatEnum.MAINTAINING){
-				throw new IOException("Managing");
+				accesscode = AccessCodeEnum.MAINTAINING;
+				break CheckReservation;
 			}
+			//Find users allowed by this reservation record
 			qry = "SELECT u "
 				+ "FROM KReservation r, KUser u, KUser_Studygroup us "
 				+ "WHERE ((us.group=r.group AND us.user=u) OR (r.reserver=u)) AND "
-				+ "r=?1 AND u.nuid=?2"
+				+ "r=?1 AND u.nuid=?2 "
 				+ "GROUP BY u";
 			q = this.emanager.createQuery(qry);
 			q.setParameter(1, rsv4usr);
 			q.setParameter(2, ip.nuid);
-			@SuppressWarnings("unchecked")
-			List<KUser> usrs = q.getResultList();
-			if(!(usrs.isEmpty()==false ^ rsv4usr.getResvstatus() == KReservation.RsvStatEnum.FIFS)){
-				throw new IOException("NotAllowedAccess");
+			try{
+				q.getSingleResult();
+				if(rsv4usr.getResvstatus() == KReservation.RsvStatEnum.FIFS){
+					return AccessCodeEnum.LATE;
+				} else if(rsv4usr.getResvstatus() == KReservation.RsvStatEnum.RESERVED){
+		 		//update Reservation record
+					rsv4usr.setResvstatus(KReservation.RsvStatEnum.INUSE);
+					this.emanager.merge(rsv4usr);
+					continue;
+				}
+			} catch (javax.persistence.NoResultException e){
+				accesscode = AccessCodeEnum.RESERVEDBYOTHERS;
+				continue;
 			}
-			if(rsv4usr.getResvstatus() == KReservation.RsvStatEnum.RESERVED){
-				rsv4usr.setResvstatus(KReservation.RsvStatEnum.INUSE);
-				this.emanager.merge(rsv4usr);
-			}
+		}
+		if(resvs.isEmpty()==true){
+			System.out.println("No ongoding Reservation found");
 		}
 		try {
 			tx.commit();
@@ -102,6 +157,6 @@ public class SwipeCard {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		return true;
+		return accesscode;
 	}
 }

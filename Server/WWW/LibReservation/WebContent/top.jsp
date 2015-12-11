@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="edu.neu.cs5200.finalproj.model.KUser"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,7 +34,8 @@
 			</ul>
 
 			<%
-				if (session.getAttribute("user") == null) {
+				KUser curUser = (KUser)session.getAttribute("user");
+				if (curUser == null) {
 			%>
 			<div class="navbar-right navbar-form">
 				<a class="btn btn-primary" href="${ctx}/accounts/signin.jsp">Sign in</a> 
@@ -48,8 +50,33 @@
 					 <span class="caret"></span></a> 
 					
 					<ul class="dropdown-menu">
+					<%
+						if (curUser.getRole() == 6) {   // User Manager
+					%>
+						<li><a href="${ctx}/admin/insertUser.jsp">insert user</a></li>
+						<li><a href="${ctx}/admin/deleteUser.jsp">delete user</a></li>
+						<li><a href="${ctx}/admin/updateUser.jsp">update user</a></li>
+						
+					<%
+						} else if (curUser.getRole() == 7) {   // Facility Manager
+					%>
+						<li><a href="${ctx}/admin/insertComputer.jsp">insert computer</a></li>
+						<li><a href="${ctx}/admin/deleteComputer.jsp">delete computer</a></li>
+						<li><a href="${ctx}/admin/insertGroupRoom.jsp">insert group room</a></li>
+						<li><a href="${ctx}/admin/deleteGroupRoom.jsp">delete group room</a></li>
+						<li><a href="${ctx}/admin/insertIndividualRoom.jsp">insert individual room</a></li>
+						<li><a href="${ctx}/admin/deleteIndividualRoom.jsp">delete individual room</a></li>
+						<li><a href="${ctx}/admin/setfacilitystate.jsp">set facility state</a></li>
+					
+					<%
+						} else {
+					%>
 						<li><a href="${ctx}/accounts/getMyResv">My Reservations</a></li>
 						<li><a href="${ctx}/accounts/getMyStudygroup">My StudyGroup</a></li>
+						
+					<%
+						}
+					%>
 						<li role="separator" class="divider"></li>
 						<li><a href="${ctx}/accounts/signout">Sign out</a></li>
 					</ul>

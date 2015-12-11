@@ -131,13 +131,17 @@ BEGIN
 	ELSEIF ( (SELECT COUNT(*)
 							FROM KUser u, KFacility f, KReservation re
 							WHERE (re.facility_id=f.id AND re.reserver_id=u.id AND
-							u.id=NEW.reserver_id AND re.resvstatus = 'RESERVED' AND 
-							f.type=(SELECT f1.type FROM
+								u.id=NEW.reserver_id AND re.resvstatus = 'RESERVED' AND 
+								f.type=(SELECT f1.type FROM
 									KFacility f1
 									WHERE f1.id=NEW.facility_id
-								)
+								) AND 
+								DATE(re.starttime)=DATE(NEW.starttime)
 							)
-						)	+ 1 >
+						)	+ (SELECT COUNT(*)
+							FROM KReservation re
+							WHERE (re.id=NEW.id AND DATE(re.starttime)!=DATE(NEW.starttime))
+						) >
 						(SELECT ri.max_resv_per_day FROM
 							KFacility f2 ,KUser u2, KRights ri
 							WHERE f2.id=NEW.facility_id AND f2.type=ri.facilitytype AND

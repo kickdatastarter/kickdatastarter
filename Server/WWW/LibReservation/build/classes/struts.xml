@@ -21,7 +21,8 @@
             	<param name="namespace">/</param>
 			</result>
 			<result name="login">/accounts/signin.jsp</result>
-			<result name="admin">/admin.jsp</result>
+            <result name="admin">/top.jsp</result>
+            <result name="fAdmin">/admin/setfacilitystate.jsp</result>
 		</action>
 		
 		<action name="signout" class="edu.neu.cs5200.finalproj.action.AccountAction"
@@ -110,52 +111,52 @@
 		
 		<action name="insertUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="insertUser">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="updateUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="updateUser">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="deleteUser" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deleteUser">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="insertComputer" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="insertComputer">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="deleteComputer" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deleteComputer">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="insertGroupRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="insertGroupRoom">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="deleteGroupRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deleteGroupRoom">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="insertIndividualRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="insertIndividualRoom">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="deleteIndividualRoom" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="deleteIndividualRoom">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 		
 		<action name="setfacilitystate" class="edu.neu.cs5200.finalproj.action.AccountAction"
 			method="setfacilitystate">
-			<result name="success">/admin.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 	</package>
 

@@ -80,11 +80,11 @@ public class KStudygroup implements Serializable, Comparator<KStudygroup> {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public int compare(KStudygroup arg0, KStudygroup arg1) {
 		// TODO Auto-generated method stub
-		return arg0.getId()-arg1.getId();
+		return arg0.getName().compareTo(arg1.getName());
 	}
 	/*
 	@Override

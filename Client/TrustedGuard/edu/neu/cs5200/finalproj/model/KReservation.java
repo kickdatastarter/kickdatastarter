@@ -87,6 +87,7 @@ public class KReservation implements Serializable {
 	 */
 	@Basic
 	@Column(name = "starttime")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Timestamp getStarttime() {
 		return starttime;
 	}
@@ -101,6 +102,7 @@ public class KReservation implements Serializable {
 	 */
 	@Basic
 	@Column(name = "endtime")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Timestamp getEndtime() {
 		return endtime;
 	}
