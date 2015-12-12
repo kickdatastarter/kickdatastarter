@@ -23,17 +23,19 @@ public class KRole implements Serializable {
 	@OneToMany(mappedBy="role")
 	private List<KRights> kRights = new ArrayList<KRights>();
 
+	@OneToMany(mappedBy = "KRole")
+	public Collection<KUser> KUsers;
+
 	public KRole() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public KRole(int id, String name) {
-		this.id = id;
+	public KRole(String name) {
 		this.name = name;
 	}
 	
 	
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public int getid() {
 		return id;
 	}
@@ -50,9 +52,4 @@ public class KRole implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	@OneToMany(mappedBy = "KRole")
-	public Collection<KUser> KUsers;
-
 }

@@ -171,7 +171,8 @@ public class KReservationDao {
 		KStudygroup studygroup = studygroupID.equals("null") ? null
 				: session.get(KStudygroup.class, Integer.parseInt(studygroupID));
 
-		KReservation resv = new KReservation("", startTimestamp, endTimestamp, facility, user, studygroup, resvStatus,
+		String desc = new String(month+"/"+day+" "+startTimestamp.getHours()+" to "+endTimestamp.getHours());
+		KReservation resv = new KReservation(desc, startTimestamp, endTimestamp, facility, user, studygroup, resvStatus,
 				maintainStatus);
 
 		session.save(resv);

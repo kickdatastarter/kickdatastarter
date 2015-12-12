@@ -12,9 +12,9 @@ cp=$cp:lib/log4j-1.2.17.jar # Logger itself
 #
 echo "Compiling"
 #javac -cp $cp ../../DataModel/edu/neu/cs5200/finalproj/model/*.java
-javac -cp $cp ./edu/neu/cs5200/finalproj/model/*.java
+javac -cp $cp ./edu/neu/cs5200/finalproj/model/*.java ./*.java
 echo "Enhancing"
 java -cp $cp org.apache.openjpa.enhance.PCEnhancer edu/neu/cs5200/finalproj/model/*.java
 #java -cp $cp org.apache.openjpa.enhance.PCEnhancer ../../DataModel/edu/neu/cs5200/finalproj/model/*.java
 echo "Running"
-java -cp $cp -javaagent:"./lib/openjpa-all-2.4.0.jar" TrustedGuard $1 $2
+java -cp $cp -javaagent:"./lib/openjpa-all-2.4.0.jar" TrustedGuard $1 $2 $3

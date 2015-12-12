@@ -61,7 +61,7 @@ public class KReservation implements Serializable {
 	/**
 	 * @return the id
 	 */
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
