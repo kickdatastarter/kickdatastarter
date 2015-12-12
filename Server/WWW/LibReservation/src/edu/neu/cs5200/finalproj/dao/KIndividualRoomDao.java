@@ -34,7 +34,7 @@ public class KIndividualRoomDao {
 		session.save(i);
 		session.getTransaction().commit();
 		session.close();
-}
+	}
 	
 	public void DeleteIndividualRoom(String name){
 		Session session = sessionFactory.openSession();

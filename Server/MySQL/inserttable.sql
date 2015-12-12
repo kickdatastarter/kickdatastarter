@@ -78,7 +78,9 @@ VALUES
 ('a.i', 'defaultPass', 5, 'aai', 001779734),
 ('a.j', 'defaultPass', 6, 'aaj', 001779735),
 ('root@a', 'defaultPass', 7, 'aak', 991999736),
-('root@root', 'defaultPass', 7, 'aaks', 931999736);
+('root@root', 'defaultPass', 7, 'aaks', 931999736),
+('fmanager', 'defaultPass', 6, 'fmanager', 909878123),
+('umanager', 'defaultPass', 7, 'umanager', 909878321);
 
 INSERT INTO  KFacility(id, type, capacity)
 VALUES
@@ -167,6 +169,6 @@ INSERT INTO KReservation (description, starttime, endtime, facility_id, reserver
 VALUES ('REV0', '2015-12-10 03:00:00', '2015-12-10 04:00:00', 7, 1, 2, 'RESERVED'),
 ('REV1', '2015-12-10 04:00:00', '2015-12-10 06:00:00', 5, 2, null, 'RESERVED'),
 ('REV2', '2015-12-11 03:00:00', '2015-12-11 04:30:00', 3, 1, null, 'RESERVED'),
-('REV3', '2015-12-11 06:00:00', '2015-12-11 11:00:00', 4, 4, null, 'RESERVED');
+('REV3', '2015-12-11 06:00:00', '2015-12-11 08:00:00', 4, 4, null, 'RESERVED');
 INSERT INTO KReservation (description, starttime, endtime, facility_id, reserver_id, maintainstatus)
 VALUES ('MNG0', '2015-12-11 04:00:00', '2015-12-12 03:00:00', 4, 35, 'MAINTAINING');

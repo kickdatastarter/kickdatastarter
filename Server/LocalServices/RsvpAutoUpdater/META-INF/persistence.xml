@@ -2,7 +2,7 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="SwipeCard">
+    <persistence-unit name="RsvpAutoUpdater">
         <provider>
         org.apache.openjpa.persistence.PersistenceProviderImpl
         </provider>
@@ -25,7 +25,7 @@
             <property name="openjpa.ConnectionPassword"
                 value="datastarter2015"/>
             <property name="openjpa.ConnectionURL"
-                value="jdbc:mysql://localhost:3306/kickdatastarter"/>
+                value="jdbc:mysql://www.physicsboy.org:4096/kickdatastarter"/>
             <property name="openjpa.ConnectionDriverName"
                 value="com.mysql.jdbc.Driver"/>
         </properties>

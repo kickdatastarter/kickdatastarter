@@ -25,7 +25,7 @@
 			<property name="openjpa.ConnectionPassword"
 				value="datastarter2015"/>
 			<property name="openjpa.ConnectionURL"
-				value="jdbc:mysql://localhost:3306/kickdatastarter"/>
+				value="jdbc:mysql://www.physicsboy.org:4096/kickdatastarter"/>
 			<property name="openjpa.ConnectionDriverName"
 				value="com.mysql.jdbc.Driver"/>
 		</properties>

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,23 +36,20 @@ public class KUser implements Serializable {
 	
 	private Collection<KUser_Studygroup> user_sg_lst;
 
-	public KUser() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@ManyToOne
-	@JoinColumn(name="role", nullable=false)
-	private int role;
+	private KRole role;
 	
-	@Column(nullable=false)
 	private String name;
 	
 	@Column(nullable=false, unique=true)
 	private int nuid;
 
 	
-	public KUser(int id, String loginid, int role, String name, int nuid) {
+	public KUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public KUser(int id, String loginid, KRole role, String name, int nuid) {
 		super();
 		this.id = id;
 		this.loginid = loginid;
@@ -68,7 +66,9 @@ public class KUser implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
+	@Basic
+	@JoinColumn(nullable=false)
 	public String getLoginid() {
 		return loginid;
 	}
@@ -76,7 +76,9 @@ public class KUser implements Serializable {
 	public void setLoginid(String loginid) {
 		this.loginid = loginid;
 	}
-	
+
+	@Basic
+	@JoinColumn(nullable=false)
 	public String getLoginPassword() {
 		return loginPassword;
 	}
@@ -84,15 +86,19 @@ public class KUser implements Serializable {
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
 	}
-
-	public int getRole() {
+	
+	@ManyToOne
+	@JoinColumn(name="role", nullable=false)
+	public KRole getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(KRole role) {
 		this.role = role;
 	}
 
+	@Basic
+	@JoinColumn(nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -101,6 +107,8 @@ public class KUser implements Serializable {
 		this.name = name;
 	}
 
+	@Basic
+	@JoinColumn(nullable=false)
 	public int getNuid() {
 		return nuid;
 	}

@@ -18,14 +18,20 @@
 
 	<form class="form-signin" id="form_searchFacility" action="${ctx}/index" method="get">
 		<label >Attendence: </label> 
-			<input required autofocus name="attendence" >
-			
+		<input required autofocus name="attendence" >
 		<br>
-
-		<label>Date: </label> <input id="datePicker_searchFacility" name="datePicker_searchFacility">
-
-		<button class="btn btn-lg btn-primary btn-block" type="submit"
-			value="login" name="action">Search</button>
+		<label>Date: </label>
+        <input id="datePicker_searchFacility" name="datePicker_searchFacility">
+        <br>
+		<button class="btn btn-lg btn-primary btn-block"
+		          type="submit" value="login" name="action">
+			Search
+		</button>
+        <br>
+	    <button type="button" class="btn btn-primary btn-lg" id="modalBtn">
+	       Make a reservation
+	    </button>
+        <br>
 	</form>
 	
 	<label id="displayedDate"></label>
@@ -68,10 +74,10 @@
 					<s:set name="list" value="{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24}"></s:set>
        				<s:iterator var="ent" value="#request.list" status="statu">
 						<s:if test="value.get(#ent)=='MAINTAINING'">
-							<td style="background-color: blue"></td>
+							<td style="background-color: red"></td>
 						</s:if>
 						<s:elseif test="value.get(#ent)=='RESERVED'">
-							<td style="background-color: red"></td>
+							<td style="background-color: blue"></td>
 						</s:elseif>
 						<s:else>
 							<td></td>
@@ -82,9 +88,6 @@
 		</tbody>
 
 	</table>
-
-	<button type="button" class="btn btn-primary btn-lg" id="modalBtn">Make
-		a reservation</button>
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

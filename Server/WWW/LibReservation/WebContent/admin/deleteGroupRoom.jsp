@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<%@include file="../admin.jsp"%>
+<%@include file="../top.jsp"%>
 	
 	<form class="form-signin" action="${ctx}/accounts/deleteGroupRoom" method="post">
 		
