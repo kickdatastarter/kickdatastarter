@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -23,7 +24,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-public class KStudygroup implements Serializable, Comparator<KStudygroup> {
+public class KStudygroup implements Serializable, Comparable<KStudygroup> {
 
 	/**
 	 * 
@@ -35,7 +36,6 @@ public class KStudygroup implements Serializable, Comparator<KStudygroup> {
 	
 	
 	/**
-	 * @param id
 	 * @param name
 	 */
 	public KStudygroup(String name) {
@@ -44,7 +44,7 @@ public class KStudygroup implements Serializable, Comparator<KStudygroup> {
 	/**
 	 * @return the id
 	 */
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -81,16 +81,16 @@ public class KStudygroup implements Serializable, Comparator<KStudygroup> {
 		// TODO Auto-generated constructor stub
 	}
 
+	/*
 	@Override
 	public int compare(KStudygroup arg0, KStudygroup arg1) {
 		// TODO Auto-generated method stub
 		return arg0.getName().compareTo(arg1.getName());
 	}
-	/*
+	*/
 	@Override
 	public int compareTo(KStudygroup arg0) {
 		// TODO Auto-generated method stub
 		return this.getId() - arg0.getId();
 	}
-	*/
 }

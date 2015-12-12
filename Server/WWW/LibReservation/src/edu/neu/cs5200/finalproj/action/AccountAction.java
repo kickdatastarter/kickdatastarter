@@ -28,11 +28,13 @@ import edu.neu.cs5200.finalproj.dao.KFacilityDao;
 import edu.neu.cs5200.finalproj.dao.KGroupRoomDao;
 import edu.neu.cs5200.finalproj.dao.KIndividualRoomDao;
 import edu.neu.cs5200.finalproj.dao.KReservationDao;
+import edu.neu.cs5200.finalproj.dao.KRoleDao;
 import edu.neu.cs5200.finalproj.dao.KStudygroupDao;
 import edu.neu.cs5200.finalproj.dao.KUserDao;
 import edu.neu.cs5200.finalproj.dao.KUser_StudygroupDao;
 import edu.neu.cs5200.finalproj.model.KFacilityType;
 import edu.neu.cs5200.finalproj.model.KReservation;
+import edu.neu.cs5200.finalproj.model.KRole;
 import edu.neu.cs5200.finalproj.model.KStudygroup;
 import edu.neu.cs5200.finalproj.model.KUser;
 import edu.neu.cs5200.finalproj.util.SpringContextUtil;
@@ -448,12 +450,13 @@ public class AccountAction implements Action {
 	public String signin() throws Exception {
 		KUserDao userDao = SpringContextUtil.getService("kUserDao");
 		KUser curUser = userDao.signin(loginName, loginPassword);
+		//KRoleDao roleDao = SpringContextUtil.getService("KRoleDao");
 		if (curUser != null) {
 			this.session.put("user", curUser);
-			if (curUser.getRole() == 6)
+			if (curUser.getRole().getid() == 6)
 				return "admin";
 			
-			else if(curUser.getRole() == 7)
+			else if(curUser.getRole().getid() == 7)
 				return "admin";
 			
 			else
@@ -566,7 +569,9 @@ public class AccountAction implements Action {
 
 	public String insertUser() throws Exception {
 		KUserDao kuserinsert = SpringContextUtil.getService("kUserDao");
-		kuserinsert.InsertKuser(insertUserRole, insertUserName, insertUserLoginid, insertUserNuid);
+		KRoleDao getrole = SpringContextUtil.getService("KRoleDao");
+		KRole role = getrole.getRoleFromID(insertUserRole);
+		kuserinsert.InsertKuser(role, insertUserName, insertUserLoginid, insertUserNuid);
 
 		return SUCCESS;
 	}

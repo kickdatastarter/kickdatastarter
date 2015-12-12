@@ -42,7 +42,7 @@ public class KStudygroupDao {
 		query.setInteger("userId", userId);
 		List<Object[]> list = (List<Object[]>)query.list();
 		
-		Map<KStudygroup, List<KUser> > result = new TreeMap<KStudygroup, List<KUser> >(new KStudygroup());
+		Map<KStudygroup, List<KUser> > result = new TreeMap<KStudygroup, List<KUser> >();
 		for(Object[] object : list) {
 			KStudygroup sg = (KStudygroup)object[0];
 			KUser usr = (KUser)object[1];

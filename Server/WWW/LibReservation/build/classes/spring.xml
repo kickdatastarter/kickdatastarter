@@ -35,7 +35,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
@@ -71,4 +71,8 @@
 	<bean id="kUserDao" class="edu.neu.cs5200.finalproj.dao.KUserDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+    <bean id="KRoleDao" class="edu.neu.cs5200.finalproj.dao.KRoleDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

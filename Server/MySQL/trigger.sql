@@ -100,7 +100,8 @@ BEGIN
 										WHERE ((r.starttime >= NEW.starttime AND r.starttime < NEW.endtime) OR
 											 		 (NEW.starttime >= r.starttime AND NEW.starttime < r.endtime)) AND
 													r.facility_id=NEW.facility_id AND NEW.maintainstatus IS null AND
-													r.reserver_id!=NEW.reserver_id AND r.id!= NEW.id
+													r.reserver_id!=NEW.reserver_id AND r.id!= NEW.id AND
+													NEW.resvstatus!='FIFS'
 									)
 					) THEN
 		SIGNAL SQLSTATE '45000' 

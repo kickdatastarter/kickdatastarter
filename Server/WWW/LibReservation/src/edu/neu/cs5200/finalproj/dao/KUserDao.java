@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import edu.neu.cs5200.finalproj.model.KRole;
 import edu.neu.cs5200.finalproj.model.KUser;
 
 public class KUserDao {
@@ -34,8 +35,19 @@ public class KUserDao {
 
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	public KUser findidUseNUid(int nuid){
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 
-	public void InsertKuser(int Role, String name, String loginid, int nuid) {
+		String hql = "from KUser where nuid = :nuid";
+		Query query = session.createQuery(hql);
+		query.setInteger("nuid", nuid);
+		List<KUser> list = (List<KUser>) query.list();
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	public void InsertKuser(KRole Role, String name, String loginid, int nuid) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
