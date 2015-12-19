@@ -75,10 +75,11 @@ public class AccountAction implements Action {
 
 	private int Groupid;
 	private int userid;
+	private int usernuid;
 	private String newGroupName;
 	private int newGroupid;
 	private String Groupname;
-	private int user1;
+	private int nuid;
 
 	private int insertUserRole;
 	private String insertUserName;
@@ -86,6 +87,7 @@ public class AccountAction implements Action {
 	private int insertUserNuid;
 	private String updateUserLoginid;
 	private int updateUserRole;
+	private String updateUserLoginPass;
 	private String deleteUserLoginid;
 	private int insertComputerCapacity;
 	private String insertComputerName;
@@ -219,6 +221,14 @@ public class AccountAction implements Action {
 		return Groupname;
 	}
 
+	public int getUsernuid() {
+		return usernuid;
+	}
+
+	public void setUsernuid(int usernuid) {
+		this.usernuid = usernuid;
+	}
+
 	public void setGroupname(String Groupname) {
 		this.Groupname = Groupname;
 	}
@@ -239,12 +249,12 @@ public class AccountAction implements Action {
 		this.newGroupName = newGroupName;
 	}
 
-	public int getUser1() {
-		return user1;
+	public int getNuid() {
+		return nuid;
 	}
 
-	public void setUser1(int user1) {
-		this.user1 = user1;
+	public void setNuid(int nuid) {
+		this.nuid = nuid;
 	}
 
 	public String getLoginName() {
@@ -317,6 +327,15 @@ public class AccountAction implements Action {
 
 	public void setUpdateUserRole(int updateUserRole) {
 		this.updateUserRole = updateUserRole;
+	}
+
+	
+	public String getUpdateUserLoginPass() {
+		return updateUserLoginPass;
+	}
+
+	public void setUpdateUserLoginPass(String updateUserLoginPass) {
+		this.updateUserLoginPass = updateUserLoginPass;
 	}
 
 	public String getDeleteUserLoginid() {
@@ -450,7 +469,7 @@ public class AccountAction implements Action {
 	public String signin() throws Exception {
 		KUserDao userDao = SpringContextUtil.getService("kUserDao");
 		KUser curUser = userDao.signin(loginName, loginPassword);
-		//KRoleDao roleDao = SpringContextUtil.getService("KRoleDao");
+		//KRoleDao roleDao = SpringContextUtil.getService("kRoleDao");
 		if (curUser != null) {
 			this.session.put("user", curUser);
 			if (curUser.getRole().getid() == 6)
@@ -542,7 +561,7 @@ public class AccountAction implements Action {
 		KStudygroupDao studygroupDao = SpringContextUtil.getService("kStudygroupDao");
 		int insertedStudygroupID = studygroupDao.addStudygroup(newGroupName);
 		KUser_StudygroupDao user_studygroupDao = SpringContextUtil.getService("kUser_StudygroupDao");
-		user_studygroupDao.addpersoninStudygroup(((KUser) this.session.get("user")).getId(), insertedStudygroupID);
+		user_studygroupDao.addpersoninStudygroup(((KUser) this.session.get("user")).getNuid(), insertedStudygroupID);
 
 		return SUCCESS;
 	}
@@ -556,20 +575,23 @@ public class AccountAction implements Action {
 
 	public String addpersoninStudygroup() {
 		KUser_StudygroupDao user_studygroupDao = SpringContextUtil.getService("kUser_StudygroupDao");
-		user_studygroupDao.addpersoninStudygroup(user1, newGroupid);
+		user_studygroupDao.addpersoninStudygroup(nuid, newGroupid);
 
 		return SUCCESS;
 	}
 
 	public String deletepeoplefromStudygroup() {
 		KUser_StudygroupDao user_studygroupDao = SpringContextUtil.getService("kUser_StudygroupDao");
-		user_studygroupDao.deletepeoplefromStudygroup(Groupid, userid);
+		KUser user = (KUser) this.session.get("user");
+		if(usernuid == user.getNuid())
+			return SUCCESS;
+		user_studygroupDao.deletepeoplefromStudygroup(Groupid, usernuid);
 		return SUCCESS;
 	}
 
 	public String insertUser() throws Exception {
 		KUserDao kuserinsert = SpringContextUtil.getService("kUserDao");
-		KRoleDao getrole = SpringContextUtil.getService("KRoleDao");
+		KRoleDao getrole = SpringContextUtil.getService("kRoleDao");
 		KRole role = getrole.getRoleFromID(insertUserRole);
 		kuserinsert.InsertKuser(role, insertUserName, insertUserLoginid, insertUserNuid);
 
@@ -578,7 +600,7 @@ public class AccountAction implements Action {
 
 	public String updateUser() throws Exception {
 		KUserDao kuserupdate = SpringContextUtil.getService("kUserDao");
-		kuserupdate.UpdateKUser(updateUserLoginid, updateUserRole);
+		kuserupdate.UpdateKUser(updateUserLoginid, updateUserLoginPass, updateUserRole);
 
 		return SUCCESS;
 	}

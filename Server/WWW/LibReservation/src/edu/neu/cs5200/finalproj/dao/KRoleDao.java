@@ -31,8 +31,8 @@ public class KRoleDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		KRole i = new KRole(name);
-		session.save(i);
+		KRole role = new KRole(name);
+		session.save(role);
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -54,7 +54,7 @@ public class KRoleDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		String hql="select KRole r "
+		String hql="from KRole r "
 				  + "where r.id = :id ";
 		Query query=session.createQuery(hql);
 		query.setInteger("id", id);

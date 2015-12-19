@@ -33,7 +33,7 @@ public class KFacility implements Serializable {
 
 	public KFacilityType type;
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}

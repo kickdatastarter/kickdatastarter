@@ -1,5 +1,7 @@
 package edu.neu.cs5200.finalproj.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,11 +21,20 @@ public class KUser_StudygroupDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public void addpersoninStudygroup( int user1,
+	public void addpersoninStudygroup( int nuid,
 			 int newGroupid) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		KUser user = session.get(KUser.class,user1);
+		String hql = "select distinct u "
+				+ "from KUser u "
+				+ "where u.nuid = :nuid";
+		Query query = session.createQuery(hql);
+		query.setParameter("nuid", nuid);
+		List<KUser> ls = (List<KUser>)query.list();
+		if (ls ==null || ls.isEmpty())
+			return;
+		KUser user = ls.get(0);
+		//KUser user = session.get(KUser.class,nuid);
 		KStudygroup studygroup = session.get(KStudygroup.class, newGroupid);
 		KUser_Studygroup newgroup = new KUser_Studygroup(user, studygroup);
 		session.save(newgroup);
@@ -31,15 +42,26 @@ public class KUser_StudygroupDao {
 		session.close();
 	}
 	
-	public void deletepeoplefromStudygroup(int Groupid,int userid) {
+	public void deletepeoplefromStudygroup(int Groupid,int usernuid) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		String hql= "delete KUser_Studygroup ksg "
+		int userid;
+		String hql = "select distinct u "
+				+ "from KUser u "
+				+ "where u.nuid = :nuid";
+		Query query = session.createQuery(hql);
+		query.setParameter("nuid", usernuid);
+		List<KUser> ls = (List<KUser>)query.list();
+		if (ls ==null || ls.isEmpty())
+			return;
+		KUser user = ls.get(0);
+		userid = user.getId();
+		hql= "delete KUser_Studygroup ksg "
 			
 				+"where ksg.group = :Groupid "
 				
 				+"and ksg.user = :Userid ";
-		Query query=session.createQuery(hql);
+		query=session.createQuery(hql);
 		
 		query.setInteger("Groupid",Groupid);
 		query.setInteger("Userid",userid);
