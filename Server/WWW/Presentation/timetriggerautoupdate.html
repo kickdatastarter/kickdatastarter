@@ -1,0 +1,13 @@
+<html><head></head>
+<body bgcolor="#D2E9FF">
+	<div style="color:#272727">
+		<br/>
+		<p><b><i>Time triggered auto update</i></b></p><br/>
+		<p>Decription: A program that checks whether a reservation needs to be updated</p><br/>
+		<p><b>Step-by-step description:</b></p><br/>
+		<p>[#LFRS] triggers the program every 15min. </p>
+		<p>Includes: [#Query KReservation]. [#Reservation Tracker] checks each reservation which just expired the 15min "grace period", but not "in use".</p>
+		<p>Includes: [#Modify KReservation]. [#Reservation Tracker] sets affected Reservation status to "First in First Serve". </p>
+	</div>
+</body>
+</html>

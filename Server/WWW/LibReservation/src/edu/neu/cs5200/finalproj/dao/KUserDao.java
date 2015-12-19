@@ -56,6 +56,7 @@ public class KUserDao {
 		u.setName(name);
 		u.setLoginid(loginid);
 		u.setNuid(nuid);
+		u.setLoginPassword("defaultPass");
 		session.save(u);
 		session.getTransaction().commit();
 		session.close();
@@ -74,12 +75,21 @@ public class KUserDao {
 
 	}
 
-	public void UpdateKUser(String loginid, int role) {
+	public void UpdateKUser(String loginid, String loginpass, int role) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-
-		String hql = "update KUser u set u.role=:role " + "where u.loginid=:loginid ";
-		Query query = session.createQuery(hql);
+		String hql;
+		Query query;
+		if(loginpass!=null && loginpass.length()!=0){
+			hql = "update KUser u set u.role=:role,u.loginPassword=:pass "
+					+ "where u.loginid=:loginid ";
+			query = session.createQuery(hql);
+			query.setString("pass", loginpass);
+		} else {
+			hql = "update KUser u set u.role=:role "
+					+ "where u.loginid=:loginid ";			
+			query = session.createQuery(hql);
+		}
 		query.setString("loginid", loginid);
 		query.setInteger("role", role);
 		int ret = query.executeUpdate();

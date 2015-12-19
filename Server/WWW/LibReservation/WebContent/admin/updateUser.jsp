@@ -17,9 +17,13 @@
 			type="updateUserLoginid" id="inputupdateUserLoginid" class="form-control"
 			placeholder="updateUserLoginid" required name="updateUserLoginid">
 			
-		<label for="inputupdateUserRole" class="sr-only">Role</label> <input
-			type="updateUserRole" id="inputupdateUserRole" class="form-control"
-			placeholder="updateUserRole" required name="updateUserRole">
+        <label for="inputupdateUserRole" class="sr-only">Role</label> <input
+            type="updateUserRole" id="inputupdateUserRole" class="form-control"
+            placeholder="updateUserRole" required name="updateUserRole">
+
+        <label for="inputupdateUserLoginPass" class="sr-only">Pass</label> <input
+            type="updateUserLoginPass" id="inputupdateUserLoginPass" class="form-control"
+            placeholder="updateUserLoginPass" required name="updateUserLoginPass">
 
 		
 		<button class="btn btn-lg btn-primary btn-block" type="submit"

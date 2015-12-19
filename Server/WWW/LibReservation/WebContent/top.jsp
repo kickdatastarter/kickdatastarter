@@ -51,14 +51,14 @@
 					
 					<ul class="dropdown-menu">
 					<%
-						if (curUser.getRole().getid() == 6) {   // User Manager
+						if (curUser.getRole().getid() == 7) {   // User Manager
 					%>
 						<li><a href="${ctx}/admin/insertUser.jsp">insert user</a></li>
 						<li><a href="${ctx}/admin/deleteUser.jsp">delete user</a></li>
 						<li><a href="${ctx}/admin/updateUser.jsp">update user</a></li>
 						
 					<%
-						} else if (curUser.getRole().getid() == 7) {   // Facility Manager
+						} else if (curUser.getRole().getid() == 6) {   // Facility Manager
 					%>
 						<li><a href="${ctx}/admin/insertComputer.jsp">insert computer</a></li>
 						<li><a href="${ctx}/admin/deleteComputer.jsp">delete computer</a></li>

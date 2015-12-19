@@ -7,7 +7,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://www.physicsboy.org:4096/kickdatastarter" />
+			value="jdbc:mysql://localhost:3306/kickdatastarter" />
 		<property name="username" value="kickdata" />
 		<property name="password" value="datastarter2015" />
 	</bean>
@@ -35,7 +35,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 			</props>
 		</property>
 	</bean>
@@ -68,11 +68,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="kUserDao" class="edu.neu.cs5200.finalproj.dao.KUserDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-    <bean id="KRoleDao" class="edu.neu.cs5200.finalproj.dao.KRoleDao">
+    <bean id="kUserDao" class="edu.neu.cs5200.finalproj.dao.KUserDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="kRoleDao" class="edu.neu.cs5200.finalproj.dao.KRoleDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 </beans>

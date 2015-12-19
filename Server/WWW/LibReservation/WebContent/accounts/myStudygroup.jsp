@@ -32,7 +32,7 @@
 					<thead>
 						<tr>
 							<th>Group Name (id)</th>
-							<th>Members (id)</th>
+							<th>Members (NUID)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,8 +46,8 @@
 								</td>
 								<td>
 									<s:iterator value="value">
-										<s:property value="loginid" /> 
-                                        <s:property value="%{'(' + id + ')'}" /> <br>
+										<s:property value="name" /> 
+                                        <s:property value="%{'(' + nuid + ')'}" /> <br>
 									</s:iterator>
 								</td>
 							</tr>
@@ -69,8 +69,8 @@
 			    <h3>Add a person into a group</h3>
 			    <form action="${ctx}/accounts/addpersoninStudygroup" 
 			        method="post"> 
-                    <label>Group: </label> <select name="newGroupid" id="studygroupDdl_addPerson"></select>
-                    <label>UserID: </label> <input name="user1">
+                    <label>Group(current users): </label> <select name="newGroupid" id="studygroupDdl_addPerson"></select>
+                    <label>User NUID: </label> <input name="nuid">
 			            
 			        <button type="submit" value="login" name="action">Add</button>  
 			    </form> 
@@ -90,7 +90,7 @@
 			    <form action="${ctx}/accounts/deletepeoplefromStudygroup" 
 			        method="post"> 
                     <label>Group: </label> <select name="Groupid" id="studygroupDdl_deletePerson"></select>
-                    <label>UserID: </label> <input name="userid">
+                    <label>UserNUID: </label> <input name="usernuid">
 			            
 			        <button type="submit" value="login" name="action">delete</button>
 			        

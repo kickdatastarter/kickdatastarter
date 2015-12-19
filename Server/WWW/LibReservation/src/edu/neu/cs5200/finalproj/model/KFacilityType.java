@@ -27,7 +27,7 @@ public class KFacilityType implements Serializable {
 		this.tablename = tablename;
 	}
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getid() {
 		return id;
 	}

@@ -1,3 +1,4 @@
+use kickdatastarter
 INSERT INTO KRole(name)
 VALUES ('undergraduate'),
 ('graduate'),
@@ -77,8 +78,6 @@ VALUES
 ('a.h', 'defaultPass', 5, 'aah', 001779733),
 ('a.i', 'defaultPass', 5, 'aai', 001779734),
 ('a.j', 'defaultPass', 6, 'aaj', 001779735),
-('root@a', 'defaultPass', 7, 'aak', 991999736),
-('root@root', 'defaultPass', 7, 'aaks', 931999736),
 ('fmanager', 'defaultPass', 6, 'fmanager', 909878123),
 ('umanager', 'defaultPass', 7, 'umanager', 909878321);
 
